@@ -13,6 +13,31 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="bg-image">
+            <div class="container scrollable bg-center d-flex flex-column">
+                <div class="row">
+                    <div class="col-lg-1 "></div>
+                    {# Normal navbar #}
+                    <div class="col-lg-10 ">
+                        {% include 'components/navbar.html.twig' %}
+                    </div>
+                    {# Hamburger navbar #}
+                    <div class="col-lg-1 d-flex flex-row justify-content-between">
+                        {% include 'components/hamburger.html.twig' %}
+                    </div>
+                </div>
+                <div class="row flex-grow-1">
+                    <div class="col-12">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+                <div class="row">
+                    {# Footer #}
+                    <div class="col-12">
+                        {% include 'components/footer.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -1,0 +1,25 @@
+<div class="d-flex flex-row justify-content-start" style="margin-top: 35px;">
+    <img id="navbar-mobile" class="bg-primary p-2" src="/icons/hamburger.svg" alt="">
+</div>
+<div id="dropdown-menu" class="dropdown-menu">
+    <ul class="fs-5 navbar-nav">
+        <a href="{{ path('home') }}" ActiveClass="keep-hover-3" class="hover-3 d-flex justify-content-center mb-2">Home</a>
+        <a href="{{ path('recipes') }}" ActiveClass="keep-hover-3" class="hover-3 d-flex justify-content-center mb-2">Recipes</a>
+        <a href="{{ path('contact') }}" ActiveClass="keep-hover-3" class="hover-3 d-flex justify-content-center mb-2">Contact</a>
+        {# Authview #}
+        <a href="{{ path('myrecipes') }}" ActiveClass="keep-hover-3" class="hover-3 d-flex justify-content-center">My Recipes</a>
+        {# Authview #}
+    </ul>
+</div>
+{# Authview #}
+<a href="{{ path('login') }}">
+    <div class="rounded-circle bg-primary p-2" style="margin-top: 35px;">
+        <img src="/icons/person.svg" class="icon-img" style="height: auto; width: 25px" alt="Login">
+    </div>
+</a>
+<a href="{{ path('edit') }}">
+    <div class="rounded-circle bg-primary p-2" style="margin-top: 35px;">
+        <img src="/icons/person_settings.svg" class="icon-img" style="height: auto; width: 25px" alt="Login">
+    </div>
+</a>
+{# Authview #}

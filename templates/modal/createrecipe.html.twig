@@ -1,0 +1,39 @@
+<div class="modal fade" id="staticBackdrop@(complete_recipe.complete_recipe_id)" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"> 
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">{# @complete_recipe.name #}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="min-height: 50vh;">
+                <div class="container">
+                    <div class="row">
+                        <div class="d-flex flex-row justify-content-between">
+                            <p class="fs-6">{# Created by: @complete_recipe.user_name #}</p>
+                            <p class="fs-6">{# Created by: @complete_recipe.created_on.ToShortDateString( #})</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 ">
+                            <ul class="list-group">
+                                {# @foreach (CompleteIngredient complete_ingredient in complete_recipe.complete_ingredients){ #}
+                                <li class="list-group-item">{# @complete_ingredient.name @complete_ingredient.amount @complete_ingredient.type #}</li>
+                                {# } #}
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="d-flex flex-column h-100 border rounded pt-2 px-2">
+                                <p class="fs-6">{# @complete_recipe.description #}</p>
+                                    <div class="d-flex flex-row justify-content-between mt-auto" style="margin-bottom: -15px;">
+                                    <p>{# Prep time: @complete_recipe.prep_time_hour h @complete_recipe.prep_time_min min #}</p>
+                                    <p>{# Cook time: @complete_recipe.cook_time_hour h @complete_recipe.cook_time_min min #}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
