@@ -1,0 +1,16 @@
+<div class="col-lg-4 col-md-6 col-sm-12 d-flex flex-row justify-content-center mb-4">
+    <div class="card mx-2 mb-2" style="width: 18rem;">
+        <img src="/images/boiler.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{# @complete_recipe.name #}</h5>
+            <p class="card-text">{# @complete_recipe.description.Substring(0, Math.Min(60, complete_recipe.description.Length)) #}</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop@(complete_recipe.complete_recipe_id)">Go somewhere</button>
+        </div>
+        {% if false %}
+            <div class="d-flex flex-row justify-content-between mb-3">
+                <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop@(complete_recipe.complete_recipe_id)">Edit</button>
+                <button class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop@(complete_recipe.complete_recipe_id)">Delete</button>
+            </div>
+        {% endif %}
+    </div>   
+</div>

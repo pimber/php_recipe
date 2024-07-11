@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <h3 class="my-5 d-flex justify-content-center text-white">Contact me if you have any question</h3>
+            <form class="d-flex align-items-center flex-column">
+                <div class="mb-3 w-50">
+                    <label for="fullNameInput" class="form-label text-white">Full Name</label>
+                    <input type="text" class="form-control" id="fullNameInput" aria-describedby="fullNameHelp">
+                </div>
+                <div class="mb-3 w-50">
+                    <label for="emailInput" class="form-label text-white">Email address</label>
+                    <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3 w-50">
+                    <label for="messageTextarea" class="form-label text-white">Leave your message here</label>
+                    <textarea class="form-control" id="messageTextarea" placeholder="Text here" style="height: 100px"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
