@@ -24,13 +24,6 @@
     background-color: #ffffff12;
 }
 
-/* Hide #navbar-mobile from 992px onwards */
-@media (min-width: 992px) {
-    #navbar-mobile {
-        display: none;
-    }
-}
-
 #navbar-mobile-container {
     position: relative;
 }
@@ -64,32 +57,32 @@
 /****************************************
     Navbar
 ****************************************/
-::deep .hover-3 {
+.hover-3 {
     --b: 2px;
     /* Increase the thickness of the line */
     --c: #b8b8b8;
     /* Change the color to white */
 
-    color: #ffff;
+    color: #ffffff;
     padding-block: var(--b);
     background: linear-gradient(var(--c) 50%, #000 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
-        linear-gradient(var(--c) 0 0) 0% var(--_p, 0%) / var(--_p, 0%) var(--b) no-repeat;
+                linear-gradient(var(--c) 0 0) 0% var(--_p, 0%) / var(--_p, 0%) var(--b) no-repeat;
     -webkit-background-clip: text, padding-box;
     background-clip: text, padding-box;
     transition: 0.1s var(--_s, 0s) linear,
-        background-size 0.1s calc(0.1s - var(--_s, 0s));
+                background-size 0.1s calc(0.1s - var(--_s, 0s));
     text-decoration: none;
     /* Disable default underline */
 }
 
-::deep .hover-3:hover {
+.hover-3:hover {
     --_p: 100%;
     --_s: 0.1s;
     color: #b8b8b8;
     /* Change text color on hover */
 }
 
-::deep .keep-hover-3 {
+.keep-hover-3 {
     --_p: 100%;
     --_s: 0.1s;
     color: #b8b8b8;
@@ -99,6 +92,13 @@
 /* Hide #navbar below 992px */
 @media (max-width: 992px) {
     #navbar {
+        display: none;
+    }
+}
+
+/* Hide #navbar-mobile from 992px onwards */
+@media (min-width: 992px) {
+    #navbar-mobile {
         display: none;
     }
 }
