@@ -1,22 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row d-flex justify-content-center">
-        <h3 class="my-5 d-flex justify-content-center text-white">Random Quote</h3>
-        <div class="col-3"></div>
-        <div class="col-6 mb-4">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for recipe" {# Something to search DB and open create modal #}>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="row">
-                {# Show all recipe cards from DB #}
-            </div>
-        </div>
-    </div>
 
-    {# Recipe Modal View here #}
+<div class="row">
+    <div class="col-12">
+        <h3 class="my-5 d-flex justify-content-center text-white">Find a recipe here</h3>
+        <form class="d-flex align-items-center flex-column">
+            <div class="mb-3 w-50">
+                <input type="text" placeholder="Search here to find recipe" class="form-control" id="fullNameInput" aria-describedby="fullNameHelp">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            
+            {# Show all recipe cards from DB #}
+        </div>
+    </div>
+</div>
+
+{# Recipe Modal View here #}
+
 {% endblock %}
