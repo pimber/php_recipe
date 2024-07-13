@@ -2,38 +2,44 @@
 
 {% block body %}
 
+{{ form_start(form) }}
 <div class="row">
     <div class="col-12">
         <h3 class="my-5 d-flex justify-content-center text-white">Edit your informations</h3>
-        <Form Model="user" {# OnSubmit="InsertUser" #} FormName="CreateUser" class="d-flex align-items-center flex-column">
-            {% if false %}
-                <div class="alert alert-success mt-3" role="alert">
-                    The user information has been successfully change.
-                </div>
-
-                <div class="alert alert-danger mt-3" role="alert">
-                    The user information has not been successfully change.
-                </div>
+        <div class="d-flex align-items-center flex-column">
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
             {% endif %}
             <div class="mb-3 w-50">
-                <label for="nameInput" class="form-label text-white">Name</label>
-                <input class="form-control" placeholder="Current name"/>
+                {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.name, {'attr': {
+                    'class': 'form-control',
+                    'placeholder': form.vars.value.name,
+                    'value': ''
+                }}) }}
+                {{ form_errors(form.name) }}
             </div>
             <div class="mb-3 w-50">
-                <label for="emailInput" class="form-label text-white">Email address</label>
-                <input class="form-control" placeholder="Current email"/>
+                {{ form_label(form.email, 'Email address', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.email, {'attr': {
+                    'class': 'form-control',
+                    'placeholder': form.vars.value.email,
+                    'value': ''
+                }}) }}
+                {{ form_errors(form.email) }}
             </div>
             <div class="mb-3 w-50">
-                <label for="passwordInput" class="form-label text-white">Password</label>
-                <input type="password" class="form-control" placeholder="Current password"/>
+                {{ form_label(form.password, 'New Password', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.password) }}
             </div>
-            <div class="mb-3 w-50">
-                <label for="repeatPasswordInput" class="form-label text-white">Repeat Password</label>
-                <input type="password" class="form-control" placeholder="Current repeat password"/>
+            <div class="d-flex justify-content-between w-50">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <a href="{{ path('logout')}}" class="btn btn-danger">Logout</a>
             </div>
-            <button type="submit" class="btn btn-primary">Register Account</button>
-        </Form>
+        </div>
     </div>
 </div>
+{{ form_end(form) }}
 
 {% endblock %}

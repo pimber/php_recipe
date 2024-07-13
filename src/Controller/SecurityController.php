@@ -12,12 +12,18 @@ use App\Form\LoginFormType;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/login', name: 'login')]
+    #[Route('/login', name: 'login')] 
     public function auth(AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->getUser()) return $this->redirectToRoute('home');
+        
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -43,7 +49,7 @@ class SecurityController extends AbstractController
 
     
     #[Route('/register', name:'register')]
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper, MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -68,8 +74,118 @@ class SecurityController extends AbstractController
                 )
             );
 
+            // Set the user as inactive
+            $user->setIsActive(false);
+
             // Set the user role
-            $user->setRoles(['User']);
+            $user->setRoles(['ROLE_User']);
+
+            // Save the user
+            $entityManager->persist($user);
+            
+            // Flush the buffer
+            $entityManager->flush();
+            
+            // generate a signed url and email it to the user
+            $signatureComponents = $verifyEmailHelper->generateSignature(
+                'verify_email',
+                $user->getId(),
+                $user->getEmail(),
+                ['id' => $user->getId()]
+            );
+
+            $email = (new Email())
+                ->from('oldefarsopskrifter@outlook.dk')
+                ->to($user->getEmail())
+                ->subject('Please Confirm your Email')
+                ->html('<p>Please confirm your email by clicking <a href="' . $signatureComponents->getSignedUrl() . '">here</a>.</p>');
+
+            $mailer->send($email);
+
+            // Redirect or render a success message
+            return $this->redirectToRoute('confirm_email');
+        }
+
+        return $this->render('account/register.html.twig', [
+            'form' => $form->createView(),
+            'error' => false
+        ]);
+    }
+
+    #[Route('/verify', name: 'verify_email')]
+    public function verifyUserEmail(Request $request, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
+    {
+        // Match ID of the user
+        $id = $request->get('id');
+
+        if (null === $id) {
+            return $this->redirectToRoute('register');
+        }
+        
+        // Match user with database based on ID
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        if (null === $user) {
+            return $this->redirectToRoute('register');
+        }
+
+        // Handle the verification of the user
+        try {
+            $verifyEmailHelper->validateEmailConfirmationFromRequest($request, $user->getId(), $user->getEmail());
+        } catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlash('verify_email_error', $exception->getReason());
+
+            return $this->redirectToRoute('register');
+        }
+
+        $user->setIsActive(true);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Your email address has been verified.');
+
+        return $this->redirectToRoute('login');
+    }
+
+    #[Route('/confirm', name: 'confirm_email')]
+    public function confirmUserEmail() : Response
+    {
+        return $this->render('account/confirmemail.html.twig');
+    }
+
+    #[Route('/edit', name:'edit')]
+    public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        // Says that user is the type of User or null
+        /** @var User|null $user */
+        $user = $this->getUser();
+        $old_mail = $user->getEmail();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Check if the user alreade exists
+            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['Email' => $user->getEmail()]);
+            if ($existingUser && $user->getEmail() != $old_mail) {
+                // Render an error message
+                $user->setEmail($old_mail);
+                return $this->render('account/edit.html.twig', [
+                    'form' => $form->createView(),
+                    'error' => 'This email is already in use',
+                ]);
+            }
+            
+            // Encode the password
+            if ($form->get('password')->getData()) {
+                $user->setPassword(
+                    $passwordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+            }
+
+            // Set the user role
+            $user->setRoles(['ROLE_User']);
 
             // Save the user
             $entityManager->persist($user);
@@ -81,15 +197,10 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('account/register.html.twig', [
+        return $this->render('account/edit.html.twig', [
             'form' => $form->createView(),
             'error' => false
         ]);
     }
 
-    #[Route('/edit', name:'edit')]
-    public function edit(): Response
-    {
-        return $this->render('account/edit.html.twig');
-    }
 }
