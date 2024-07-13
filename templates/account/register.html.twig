@@ -2,38 +2,33 @@
 
 {% block body %}
 
+{{ form_start(form) }}
 <div class="row">
     <div class="col-12">
         <h3 class="my-5 d-flex justify-content-center text-white">Register</h3>
-        <Form Model="user" {# OnSubmit="InsertUser" #} FormName="CreateUser" class="d-flex align-items-center flex-column">
-            {% if false %}
-                <div class="alert alert-success mt-3" role="alert">
-                    The user has been successfully uploaded.
-                </div>
-
-                <div class="alert alert-danger mt-3" role="alert">
-                    The user was not successfully uploaded.
-                </div>
+        <div class="d-flex align-items-center flex-column">
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
             {% endif %}
             <div class="mb-3 w-50">
-                <label for="nameInput" class="form-label text-white">Name</label>
-                <input input="user.name" class="form-control" />
+                {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.name) }}
             </div>
             <div class="mb-3 w-50">
-                <label for="emailInput" class="form-label text-white">Email address</label>
-                <input class="form-control" />
+                {{ form_label(form.email, 'Email address', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.email) }}
             </div>
             <div class="mb-3 w-50">
-                <label for="passwordInput" class="form-label text-white">Password</label>
-                <input type="password" class="form-control" />
-            </div>
-            <div class="mb-3 w-50">
-                <label for="repeatPasswordInput" class="form-label text-white">Repeat Password</label>
-                <input type="password" class="form-control" />
+                {{ form_label(form.password, 'Password', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.password) }}
             </div>
             <button type="submit" class="btn btn-primary">Register Account</button>
-        </Form>
+        </div>
     </div>
 </div>
+{{ form_end(form) }}
 
 {% endblock %}
