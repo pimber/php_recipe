@@ -15,81 +15,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
 {
-
-    // #[Route('/login', name: 'login')]
-    // public function login(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager)
-    // {
-    //     $user = new User();
-    //     $form = $this->createForm(LoginFormType::class, $user);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         // Encode the password
-    //         $user->setPassword(
-    //             $passwordHasher->hashPassword(
-    //                 $user,
-    //                 $form->get('password')->getData()
-    //             )
-    //         );
-            
-    //         // Check if the user exists
-    //         $existingUser = $entityManager->getRepository(User::class)->findOneBy([
-    //             'Email' => $user->getEmail(),
-    //             'Password' => $user->getPassword(),
-    //         ]);
-    //         var_dump($user);
-
-    //         if (!$existingUser) {
-    //             // Render an error message
-    //             return $this->render('account/login.html.twig', [
-    //                 'form' => $form->createView(),
-    //                 'error' => 'Incorrect email or password',
-    //             ]);
-    //         }
-
-    //         // Redirect or render a success message
-    //         return $this->redirectToRoute('home');
-
-    //     }
-
-    //     return $this->render('account/login.html.twig', [
-    //         'form' => $form->createView(),
-    //         'error' => false
-    //     ]);
-    // }
-
     #[Route('/login', name: 'login')]
-    public function auth(Request $request, AuthenticationUtils $authenticationUtils): Response
+    public function auth(AuthenticationUtils $authenticationUtils): Response
     {
-        // // get the login error if there is one
-        // $error = $authenticationUtils->getLastAuthenticationError();
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
 
-        // // last username entered by the user
-        // $lastEmail = $authenticationUtils->getLastUsername();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-        // $form = $this->createForm(LoginFormType::class, [
-        //     'Email' => $lastEmail
-        // ]);
-
-        $form = $this->createForm(LoginFormType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            dump($form->getData());
-            dump($request->request->all());
-            if ($form->isValid()) {
-                // process login
-            }
-        }
+        $form = $this->createForm(LoginFormType::class, [
+            'last_email' => $lastUsername,
+        ]);
 
         return $this->render('account/login.html.twig', [
             'form' => $form->createView(),
-            'error' => false
-            /* 'error' => $error, */
+            'error' => $error,
         ]);
-
-        // redirect to the home page
-        return $this->redirectToRoute('home');
     }
 
     #[Route('/logout', name: 'logout')]
