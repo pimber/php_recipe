@@ -28,6 +28,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private $Role = [];
 
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
+    #[ORM\Column(length: 64, nullable: true)]
+    private ?string $confirmationToken = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,7 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $Role = $this->Role;
         // guarantee every user at least has User
-        $Role[] = 'User';
+        $Role[] = 'ROLE_User';
 
         return array_unique($Role);
     }
@@ -100,5 +106,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials() : void
     {
         // If you store any temporary, sensitive data on the user, clear it here
+    }
+
+    public function GetIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function SetIsActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): static
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
     }
 }

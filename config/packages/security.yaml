@@ -25,6 +25,11 @@ security:
             logout:
                 path: logout
                 target: home
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /
+                always_remember_me: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -35,9 +40,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/myrecipes, roles: ROLE_User }
+        - { path: ^/edit, roles: ROLE_User }
         # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 when@test:
     security:

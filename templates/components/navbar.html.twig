@@ -11,11 +11,11 @@
                 <li class="nav-item px-4">
                     <a href="{{ path('contact') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'contact' ? 'keep-hover-3' : '' }}">Contact</a>
                 </li>
-                {# Authview #}
+                {% if app.user %}
                 <li class="nav-item px-4">
                     <a href="{{ path('myrecipes') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'myrecipes' ? 'keep-hover-3' : '' }}">My Recipes</a>
                 </li>
-                {# Authview #}
+                {% endif %}
             </ul>
         </div>
     </div>
