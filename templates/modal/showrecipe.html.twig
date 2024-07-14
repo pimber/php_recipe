@@ -1,0 +1,39 @@
+<div class="modal fade" id="staticBackdrop{{ recipe.id }}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"> 
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ recipe.Name }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="min-height: 50vh;">
+                <div class="container">
+                    <div class="row">
+                        <div class="d-flex flex-row justify-content-between">
+                            <p class="fs-6">Made by: {{ recipe.userId.name }}</p>
+                            <p class="fs-6">Created on: {{ recipe.createdOn|date('Y-m-d') }}</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 ">
+                            <ul class="list-group">
+                                {% for ingredient in recipe.ingredients %}
+                                    <li class="list-group-item">{{ ingredient.ingredientId.name }} {{ ingredient.Amount }} {{ ingredient.ingredientAmountTypeId.type }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="d-flex flex-column h-100 border rounded pt-2 px-2">
+                                <p class="fs-6">{{ recipe.description }}</p>
+                                    <div class="d-flex flex-row justify-content-between mt-auto" style="margin-bottom: -15px;">
+                                    <p>Prep time: {{ recipe.prepTimeHour }} h {{ recipe.prepTimeMin }} min </p>
+                                    <p>Cook time: {{ recipe.cookTimeHour }} h {{ recipe.cookTimeMin }} min </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
