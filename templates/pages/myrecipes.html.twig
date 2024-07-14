@@ -7,25 +7,29 @@
     <div class="col-3"></div>
     <div class="col-6 mb-4">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for recipe" {# Something to search DB and open create modal #}>
+            <input type="text" class="form-control" placeholder="Search for recipe">
         </div>
     </div>
-    {# Auth #}
-        <div class="col-3 d-flex justify-content-end">
-            <button type="button" class="btn btn-success mb-4 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create new recipe</button>
-        </div>
-    {# Auth #}
+    <div class="col-3 d-flex justify-content-end">
+        <button type="button" class="btn btn-success mb-4 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create new recipe</button>
+    </div>
 </div>
 <div class="row">
     <div class="col-12">
         <div class="row">
-            {# Show only the ones the owner has created recipe cards #}
+            {% for recipe in recipes %}
+                {% include 'modal/card.html.twig' with {'recipe': recipe, 'owner': true } %}
+            {% endfor %}
         </div>
     </div>
 </div>
 
 {# Create recipe modal view here #}
+{% include 'modal/createrecipe.html.twig' %}
 
 {# Recipe Modal View here #}
+{% for recipe in recipes %}
+    {% include 'modal/showrecipe.html.twig' with {'recipe': recipe } %}
+{% endfor %}
 
 {% endblock %}

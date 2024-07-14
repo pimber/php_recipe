@@ -1,39 +1,112 @@
-<div class="modal fade" id="staticBackdrop@(complete_recipe.complete_recipe_id)" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"> 
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">{# @complete_recipe.name #}</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" style="min-height: 50vh;">
-                <div class="container">
-                    <div class="row">
-                        <div class="d-flex flex-row justify-content-between">
-                            <p class="fs-6">{# Created by: @complete_recipe.user_name #}</p>
-                            <p class="fs-6">{# Created by: @complete_recipe.created_on.ToShortDateString( #})</p>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 ">
-                            <ul class="list-group">
-                                {# @foreach (CompleteIngredient complete_ingredient in complete_recipe.complete_ingredients){ #}
-                                <li class="list-group-item">{# @complete_ingredient.name @complete_ingredient.amount @complete_ingredient.type #}</li>
-                                {# } #}
-                            </ul>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="d-flex flex-column h-100 border rounded pt-2 px-2">
-                                <p class="fs-6">{# @complete_recipe.description #}</p>
-                                    <div class="d-flex flex-row justify-content-between mt-auto" style="margin-bottom: -15px;">
-                                    <p>{# Prep time: @complete_recipe.prep_time_hour h @complete_recipe.prep_time_min min #}</p>
-                                    <p>{# Cook time: @complete_recipe.cook_time_hour h @complete_recipe.cook_time_min min #}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="staticBackdropLabel">Create new recipe</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="min-height: 75vh;">
+				{{ form_start(form) }}
+				<div class="row">
+					<div class="col">
+						<div>
+							<div class="mb-3">
+								{{ form_label(form.name) }}
+								{{ form_widget(form.name) }}
+							</div>
+							<div class="mb-3">
+								{{ form_label(form.description) }}
+								{{ form_widget(form.description) }}
+							</div>
+							<div id="ingredients-wrapper" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}" data-index="{{ form.ingredients|length }}">
+								{{ form_label(form.ingredients) }}
+								{{ form_widget(form.ingredients) }}
+								<hr>
+								{% for ingredientForm in form.ingredients %}
+									<div class="d-flex flex-row">
+										<div class="col-4 me-1">
+											{{ form_label(ingredientForm.ingredient) }}
+											{{ form_widget(ingredientForm.ingredient) }}
+										</div>
+										<div class="col-4">
+											{{ form_label(ingredientForm.amount) }}
+											{{ form_widget(ingredientForm.amount) }}
+										</div>
+										<div class="col-4 me-1">
+											{{ form_label(ingredientForm.ingredientAmountType) }}
+											{{ form_widget(ingredientForm.ingredientAmountType) }}
+										</div>
+										<div>
+											<button type="button" class="remove-ingredient">Remove</button>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+							<button type="button" id="add-ingredient" class="btn btn-success mt-3">Add Ingredient</button>
+							<hr>
+							<div class="mb-3">
+								{{ form_label(form.cook_time_hour) }}
+								{{ form_widget(form.cook_time_hour) }}
+							</div>
+							<div class="mb-3">
+								{{ form_label(form.cook_time_min) }}
+								{{ form_widget(form.cook_time_min) }}
+							</div>
+							<div class="mb-3">
+								{{ form_label(form.prep_time_hour) }}
+								{{ form_widget(form.prep_time_hour) }}
+							</div>
+							<div class="mb-3">
+								{{ form_label(form.prep_time_min) }}
+								{{ form_widget(form.prep_time_min) }}
+							</div>
+							<button type="submit" class="btn btn-success mb-3">Submit Recipe
+							</button>
+						</div>
+					</div>
+				</div>
+				{{ form_end(form) }}
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () { // Get elements (List of ingredients and the ADD button) from DOM
+var ingredientsWrapper = document.getElementById('ingredients-wrapper');
+var addIngredientButton = document.getElementById('add-ingredient');
+
+addIngredientButton.addEventListener('click', function () { // The new ingredient HTML
+var newIngredient = ingredientsWrapper.dataset.prototype;
+// Ingredient index in the list
+var index = ingredientsWrapper.dataset.index;
+// Set index on the new ingredients
+newIngredient = newIngredient.replace(/__name__/g, index)
+// Add classes to divs
+newIngredient = newIngredient.replace('create_new_recipe_ingredients_' + index, 'create_new_recipe_ingredients_' + index + '" class="d-flex flex-row remove" ');
+newIngredient = newIngredient.replaceAll('<div>', '<div class="col-3 pe-2">');
+// Add remove button to ingredient
+var removeBtn = `<div class="col-3 d-flex align-items-end">
+                    <button type="button" class="btn btn-danger remove-ingredient">Remove</button>
+                </div>`
+newIngredient = newIngredient.replace('</div></div>', '</div>' + removeBtn + '</div>');
+
+// Count up index
+ingredientsWrapper.dataset.index ++;
+
+// Show the new ingredient in HTML/DOM
+var newElement = document.createElement('div');
+newElement.innerHTML = newIngredient;
+ingredientsWrapper.appendChild(newElement);
+});
+
+ingredientsWrapper.addEventListener('click', function (event) {
+if (event.target.classList.contains('remove-ingredient')) {
+event.target.closest('.remove').remove();
+}
+});
+});
+	</script>
