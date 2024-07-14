@@ -93,15 +93,16 @@ class SecurityController extends AbstractController
                 $user->getEmail(),
                 ['id' => $user->getId()]
             );
-
+            
+            
             $email = (new Email())
-                ->from('oldefarsopskrifter@outlook.dk')
-                ->to($user->getEmail())
-                ->subject('Please Confirm your Email')
-                ->html('<p>Please confirm your email by clicking <a href="' . $signatureComponents->getSignedUrl() . '">here</a>.</p>');
-
+            ->from('oldefarsopskrifter@outlook.dk')
+            ->to($user->getEmail())
+            ->subject('Please Confirm your Email')
+            ->html('<p>Please confirm your email by clicking <a href="' . $signatureComponents->getSignedUrl() . '">here</a>.</p>');
+            
             $mailer->send($email);
-
+            
             // Redirect or render a success message
             return $this->redirectToRoute('confirm_email');
         }
@@ -146,10 +147,10 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('login');
     }
 
-    #[Route('/confirm', name: 'confirm_email')]
+    #[Route('/confirm_email', name: 'confirm_email')]
     public function confirmUserEmail() : Response
     {
-        return $this->render('account/confirmemail.html.twig');
+        return $this->render('account/confirm_email.html.twig');
     }
 
     #[Route('/edit', name:'edit')]
