@@ -12,7 +12,7 @@
                 @foreach (CompleteRecipe complete_recipe in complete_recipes) { #}
                     <div class="col-lg-4 col-md-6 col-sm-12 d-flex flex-row justify-content-center mb-4">
                         <div class="card mx-2 mb-2" style="width: 18rem;">
-                            <img src="/images/boiler.png" class="card-img-top" alt="...">
+                            <img src="{{ asset('img/boiler.png') }}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title"{# >@complete_recipe.name #}</h5>
                                 <p class="card-text">{# @complete_recipe.description.Substring(0, Math.Min(60, complete_recipe.description.Length)) #}</p>
@@ -31,7 +31,7 @@
         <div class="col-12 d-flex justify-content-center">
             {# @for (int i = 0; i < 1; i++) { #}
             <div class="card col-lg-8 col-md-6 col-sm-6">
-                <img src="/images/boiler.png" class="card-img-top" alt="...">
+                <img src="{{ asset('img/boiler.png') }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
