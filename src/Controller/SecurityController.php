@@ -16,6 +16,8 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class SecurityController extends AbstractController
 {
@@ -93,13 +95,18 @@ class SecurityController extends AbstractController
                 $user->getEmail(),
                 ['id' => $user->getId()]
             );
+
             
+            // Render the Twig template and extract HTML content
+            $htmlContent = $this->renderView('account/validate_email.html.twig', [
+                'confirmation_link' => $signatureComponents->getSignedUrl()
+            ]);
             
             $email = (new Email())
             ->from('oldefarsopskrifter@outlook.dk')
             ->to($user->getEmail())
             ->subject('Please Confirm your Email')
-            ->html('<p>Please confirm your email by clicking <a href="' . $signatureComponents->getSignedUrl() . '">here</a>.</p>');
+            ->html($htmlContent);
             
             $mailer->send($email);
             
