@@ -3,7 +3,7 @@
         <img src="/images/boiler.png" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{ recipe.name }}</h5>
-            <p class="card-text">{{ recipe.description }}</p>
+            <p class="card-text">{{ recipe.description|truncateString(30) }}</p>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">Go somewhere</button>
         </div>
         {% if owner %}
