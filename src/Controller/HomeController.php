@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Recipe;
 use App\Form\CreateNewRecipeType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 class HomeController extends AbstractController
 {
@@ -37,11 +38,21 @@ class HomeController extends AbstractController
     }
 
     #[Route('/myrecipes', name:'myrecipes')]
-    public function myrecipes(Request $request, EntityManagerInterface $entityManager): Response
+    public function myrecipes(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
         /** @var User|null $user */
         $user = $this->getUser();
-        $recipes = $user->getRecipes();
+
+        // Get all the recipes from the user has created
+        $recipesQuery = $user->getRecipes();
+
+        // Paginate the results
+        $page = $request->query->getInt('page', 1);
+        $recipes = $paginator->paginate(
+            $recipesQuery,
+            $page,
+            6 // Number of items per page
+        );
 
         // Form handling
         $recipe = new Recipe();
@@ -100,7 +111,6 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
             'recipes' => $recipes,
         ]);
-
         
     }
 }
