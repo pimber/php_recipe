@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ingredient;
+use App\Entity\User;
 use App\Entity\IngredientAmount;
 use App\Entity\IngredientAmountType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,10 +26,28 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/recipes', name:'recipes')]
-    public function recipes(): Response
+    #[Route('/recipes', name: 'recipes')]
+    public function recipes(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
-        return $this->render('pages/recipes.html.twig');
+        // Get all recipes from DB
+        $recipesQuery = $entityManager->getRepository(Recipe::class)->findAll();
+
+        // Paginate the results
+        $page = $request->query->getInt('page', 1);
+        $recipes = $paginator->paginate(
+            $recipesQuery,
+            $page,
+            6 // Number of items per page
+        );
+        
+        // Set owner to false
+        $owner = false;
+
+        // Render the page
+        return $this->render('pages/recipes.html.twig', [
+            'recipes' => $recipes,
+            'owner' => $owner // Pass the owner variable to the template
+        ]);
     }
 
     #[Route('/contact', name:'contact')]
@@ -43,7 +62,7 @@ class HomeController extends AbstractController
         /** @var User|null $user */
         $user = $this->getUser();
 
-        // Get all the recipes from the user has created
+        // Get all the recipes the user has created
         $recipesQuery = $user->getRecipes();
 
         // Paginate the results
