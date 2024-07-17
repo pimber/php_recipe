@@ -29,8 +29,26 @@ class HomeController extends AbstractController
     #[Route('/recipes', name: 'recipes')]
     public function recipes(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
+        // Searchterm for the recipes
+        $searchTerm = $request->query->get('search');
+
+        // Querybuilder for searching the recipes
+        $queryBuilder = $entityManager->getRepository(Recipe::class)->createQueryBuilder('r');
+
+        // Apply search filter if search term exists
+        if ($searchTerm) {
+            $queryBuilder
+                ->leftJoin('r.user_id', 'u') // Join with User entity alias 'u'
+                ->leftJoin('r.ingredients', 'i') // Join with IngredientAmount entity alias 'i'
+                ->where('r.name LIKE :searchTerm')
+                ->orWhere('u.username LIKE :searchTerm') // Search by username of the user who created the recipe
+                ->orWhere('i.ingredient_name LIKE :searchTerm') // Search by ingredient name
+                ->orWhere('r.description LIKE :searchTerm') // Search by description
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
         // Get all recipes from DB
-        $recipesQuery = $entityManager->getRepository(Recipe::class)->findAll();
+        $recipesQuery = $queryBuilder->getQuery();
 
         // Paginate the results
         $page = $request->query->getInt('page', 1);
@@ -46,7 +64,8 @@ class HomeController extends AbstractController
         // Render the page
         return $this->render('pages/recipes.html.twig', [
             'recipes' => $recipes,
-            'owner' => $owner // Pass the owner variable to the template
+            'owner' => $owner, // Pass the owner variable to the template
+            'searchTerm' => $searchTerm // Pass the search term to the template
         ]);
     }
 
