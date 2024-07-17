@@ -96,6 +96,13 @@
     }
 }
 
+/* Hide #searchBtn below 992px */
+@media (min-width: 992px) {
+    #searchForm .btn {
+        display: none;
+    }
+}
+
 /* Hide #navbar-mobile from 992px onwards */
 @media (min-width: 992px) {
     #navbar-mobile {
