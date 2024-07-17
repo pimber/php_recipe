@@ -3,11 +3,11 @@
 </div>
 <div id="dropdown-menu" class="dropdown-menu">
     <ul class="fs-5 navbar-nav">
-        <a href="{{ path('home') }}" ActiveClass="keep-hover-3" class="hover-3 d-flex justify-content-center mb-2">Home</a>
-        <a href="{{ path('recipes') }}" ActiveClass="keep-hover-3" class="hover-3 d-flex justify-content-center mb-2">Recipes</a>
-        <a href="{{ path('contact') }}" ActiveClass="keep-hover-3" class="hover-3 d-flex justify-content-center mb-2">Contact</a>
+        <a href="{{ path('home') }}" class="d-flex justify-content-center text-black">Home</a>
+        <a href="{{ path('recipes') }}" class="d-flex justify-content-center text-black">Recipes</a>
+        <a href="{{ path('contact') }}" class="d-flex justify-content-center text-black">Contact</a>
         {% if app.user %}
-        <a href="{{ path('myrecipes') }}" ActiveClass="keep-hover-3" class="hover-3 d-flex justify-content-center">My Recipes</a>
+        <a href="{{ path('myrecipes') }}" class="d-flex justify-content-center text-black">My Recipes</a>
         {% endif %}
     </ul>
 </div>
@@ -24,3 +24,29 @@
     </div>
 </a>
 {% endif %}
+
+<script>
+document.getElementById('navbar-mobile').addEventListener('click', function(event) {
+    event.stopPropagation(); // Prevent the click event from bubbling up to the document
+    var dropdownMenu = document.getElementById('dropdown-menu');
+    var navbarMobileIcon = document.getElementById('navbar-mobile');
+
+    if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
+        dropdownMenu.style.display = 'block';
+        navbarMobileIcon.src = '/icons/close_menu.svg'; // Change the icon to close menu
+    } else {
+        dropdownMenu.style.display = 'none';
+        navbarMobileIcon.src = '/icons/hamburger.svg'; // Change the icon to hamburger menu
+    }
+});
+
+document.addEventListener('click', function(event) {
+    var dropdownMenu = document.getElementById('dropdown-menu');
+    var navbarMobileIcon = document.getElementById('navbar-mobile');
+
+    if (event.target !== dropdownMenu && event.target !== navbarMobileIcon && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.style.display = 'none';
+        navbarMobileIcon.src = '/icons/hamburger.svg'; // Ensure icon is set to hamburger menu when menu is closed
+    }
+});
+</script>
