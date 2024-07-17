@@ -36,7 +36,7 @@ class Recipe
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user_id = null;
+    private ?User $user_id = null;
 
     /**
      * @var Collection<int, IngredientAmount>
@@ -129,7 +129,7 @@ class Recipe
         return $this;
     }
 
-    public function getUserId(): ?user
+    public function getUserId(): ?User
     {
         return $this->user_id;
     }
