@@ -32,18 +32,13 @@ class HomeController extends AbstractController
         // Searchterm for the recipes
         $searchTerm = $request->query->get('search');
 
-        // Querybuilder for searching the recipes
+        // Query builder for searching the recipes
         $queryBuilder = $entityManager->getRepository(Recipe::class)->createQueryBuilder('r');
 
         // Apply search filter if search term exists
         if ($searchTerm) {
             $queryBuilder
-                ->leftJoin('r.user_id', 'u') // Join with User entity alias 'u'
-                ->leftJoin('r.ingredients', 'i') // Join with IngredientAmount entity alias 'i'
                 ->where('r.name LIKE :searchTerm')
-                ->orWhere('u.username LIKE :searchTerm') // Search by username of the user who created the recipe
-                ->orWhere('i.ingredient_name LIKE :searchTerm') // Search by ingredient name
-                ->orWhere('r.description LIKE :searchTerm') // Search by description
                 ->setParameter('searchTerm', '%' . $searchTerm . '%');
         }
 
@@ -81,8 +76,24 @@ class HomeController extends AbstractController
         /** @var User|null $user */
         $user = $this->getUser();
 
-        // Get all the recipes the user has created
-        $recipesQuery = $user->getRecipes();
+        // Search term for the myrecipes
+        $searchTerm = $request->query->get('search');
+
+        // Query builder for searching the myrecipes
+        $queryBuilder = $entityManager->getRepository(Recipe::class)->createQueryBuilder('r')
+            ->where('r.user_id = :user_id')
+            ->setParameter('user_id', $user->getId());
+
+        // Apply search filter if search term exists
+        if ($searchTerm) {
+            $queryBuilder
+                ->andWhere('r.name LIKE :searchTerm')
+                ->leftJoin('r.ingredients', 'i') // Join with IngredientAmount entity alias 'i'
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
+        // Get the query from the query builder
+        $recipesQuery = $queryBuilder->getQuery();
 
         // Paginate the results
         $page = $request->query->getInt('page', 1);
@@ -148,6 +159,7 @@ class HomeController extends AbstractController
         return $this->render('pages/myrecipes.html.twig', [
             'form' => $form->createView(),
             'recipes' => $recipes,
+            'searchTerm' => $searchTerm,
         ]);
         
     }

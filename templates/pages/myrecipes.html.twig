@@ -6,9 +6,9 @@
     <h3 class="my-5 d-flex justify-content-center text-white">Random Quote</h3>
     <div class="col-3"></div>
     <div class="col-6 mb-4">
-       <form id="searchForm" action="{{ path('recipes') }}" method="get" class="d-flex flex-column align-items-center">
-                <input type="text" id="searchInput" class="form-control mb-2" name="search" placeholder="Search for recipe" value="{{ searchTerm }}">
-                <button type="submit" class="btn btn-primary">Search</button>
+        <form id="searchForm" action="{{ path('myrecipes') }}" method="get" class="d-flex flex-column align-items-center">
+            <input type="text" id="searchInput" class="form-control mb-2" name="search" placeholder="Search for recipe" value="{{ searchTerm }}">
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
     </div>
     <div class="col-3 d-flex justify-content-end">
@@ -40,15 +40,15 @@
 {% endfor %}
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Submit form on Enter press in input field
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault(); // Prevent default form submission
-            document.getElementById('searchForm').submit(); // Submit the form
-        }
-    });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     // Submit form on Enter press in input field
+//     document.getElementById('searchInput').addEventListener('keypress', function(e) {
+//         if (e.key === 'Enter') {
+//             e.preventDefault(); // Prevent default form submission
+//             document.getElementById('searchForm').submit(); // Submit the form
+//         }
+//     });
+// });
 </script>
 
 {% endblock %}
