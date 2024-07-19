@@ -103,6 +103,13 @@
     }
 }
 
+/* Hide .btn when viewport is less than 992px */
+@media (max-width: 992px) {
+    .divBtn .btn {
+        display: none;
+    }
+}
+
 /* Hide #navbar-mobile from 992px onwards */
 @media (min-width: 992px) {
     #navbar-mobile {

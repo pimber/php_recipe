@@ -3,16 +3,19 @@
 {% block body %}
 
 <div class="row d-flex justify-content-center mb-4">
-    <h3 class="my-5 d-flex justify-content-center text-white">Random Quote</h3>
-    <div class="col-3"></div>
-    <div class="col-6 mb-4">
+    <h3 class="my-5 d-flex justify-content-center text-white">My recipes</h3>
+    <div class="col-lg-3 col-md-2 col-sm-1"></div>
+    <div class="col-lg-6 col-md-8 col-sm-10 mb-4">
         <form id="searchForm" action="{{ path('myrecipes') }}" method="get" class="d-flex flex-column align-items-center">
             <input type="text" id="searchInput" class="form-control mb-2" name="search" placeholder="Search for recipe" value="{{ searchTerm }}">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <div class="d-flex flex-wrap justify-content-between w-100">
+                <button type="submit" class="btn btn-primary mb-2 me-2">Search</button>
+                <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create new recipe</button>
+            </div>
         </form>
     </div>
-    <div class="col-3 d-flex justify-content-end">
-        <button type="button" class="btn btn-success mb-4 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create new recipe</button>
+    <div class="col-lg-3 col-md-2 col-sm-1 d-flex justify-content-end align-items-start divBtn">
+        <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create new recipe</button>
     </div>
 </div>
 <div class="row">
@@ -40,15 +43,15 @@
 {% endfor %}
 
 <script>
-// document.addEventListener('DOMContentLoaded', function() {
-//     // Submit form on Enter press in input field
-//     document.getElementById('searchInput').addEventListener('keypress', function(e) {
-//         if (e.key === 'Enter') {
-//             e.preventDefault(); // Prevent default form submission
-//             document.getElementById('searchForm').submit(); // Submit the form
-//         }
-//     });
-// });
+document.addEventListener('DOMContentLoaded', function() {
+    // Submit form on Enter press in input field
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Prevent default form submission
+            document.getElementById('searchForm').submit(); // Submit the form
+        }
+    });
+});
 </script>
 
 {% endblock %}
