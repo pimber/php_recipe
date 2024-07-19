@@ -2,46 +2,90 @@
 
 {% block body %}
 
-<div class="row">
-    <div class="col-12">
-        <h3 class="my-5 d-flex justify-content-center text-white">Todays three random recipies</h3>
-        <div class="row d-flex justify-content-center">
-            {# @if (complete_recipes == null) { #}
-                <p><em>Loading...</em></p>
-            {# } else {
-                @foreach (CompleteRecipe complete_recipe in complete_recipes) { #}
-                    <div class="col-lg-4 col-md-6 col-sm-12 d-flex flex-row justify-content-center mb-4">
-                        <div class="card mx-2 mb-2" style="width: 18rem;">
-                            <img src="{{ asset('img/boiler.png') }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title"{# >@complete_recipe.name #}</h5>
-                                <p class="card-text">{# @complete_recipe.description.Substring(0, Math.Min(60, complete_recipe.description.Length)) #}</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop@(complete_recipe.complete_recipe_id)">Go somewhere</button>
-                            </div>
-                        </div>   
-                    </div>
-                {# } #}
-            {# } #}
-        </div>
-    </div>
-</div>
-<div class="row mb-4">
-    <div class="col-12">
-        <h3 class="my-5 d-flex justify-content-center text-white">Want to learn more about the other recipies?</h3>
-        <div class="col-12 d-flex justify-content-center">
-            {# @for (int i = 0; i < 1; i++) { #}
-            <div class="card col-lg-8 col-md-6 col-sm-6">
-                <img src="{{ asset('img/boiler.png') }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                    <button class="btn btn-primary">Go somewhere</button>
-                </div>
-            </div>
-            {# } #}
-        </div>
-    </div>
-</div>
+	<div class="row">
+		<div class="col-12">
+			<h3 class="my-5 d-flex justify-content-center text-white">Todays three random recipes</h3>
+			<div class="row">
+				{% for recipe in recipes %}
+					{% include 'modal/card.html.twig' with {'recipe': recipe } %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="row mb-4 d-flex justify-content-center">
+		<div class="col-lg-8 col-md-10 col-sm-10 col-xs-6">
+			<h3 class="my-5 d-flex justify-content-center text-white">Aren’t there any interesting recipes today?</h3>
+			<div id="carouselExampleCaptions" class="carousel slide">
+				<div class="carousel-indicators">
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+				</div>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="img\grilled_burger.jpg" class="d-block w-100" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+							<a href="{{ path('recipes') }}" class="text-white">
+								<h5>Hungry? Click here to discover delicious recipes!</h5>
+							</a>
+							<a href="https://www.freepik.com/free-ai-image/grilled-burger-with-fresh-organic-tomato-herb-generated-by-ai_41410188.htm#fromView=search&page=1&position=38&uuid=9a98db6f-d664-45f9-b125-03a8e83ca50a" class="text-white">Image by vecstock on Freepik</a>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<img src="img\grilled-meat-gourmet-meal-barbecue-grill-vegetable-plate-cooked-chicken-generated-by-artificial-intelligence.jpg" class="d-block w-100" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+							<a class="text-white">
+								<h5>Craving something tasty? Explore our recipes now!</h5>
+							</a>
+							<a href="https://www.freepik.com/free-ai-image/grilled-meat-gourmet-meal-barbecue-grill-vegetable-plate-cooked-chicken-generated-by-artificial-intelligence_126495497.htm#fromView=search&page=2&position=37&uuid=0ab4d10d-b76c-404b-b179-2c0cb6ea3008" class="text-white">Image by vecstock on Freepik</a>
+						</div>
+
+					</div>
+					<div class="carousel-item">
+						<img src="img\crunchy-homemade-french-fries-deep-fried-perfection-generated-by-ai.jpg" class="d-block w-100" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+							<a class="text-white">
+								<h5>Need meal ideas? Check out our mouthwatering recipes!</h5>
+							</a>
+							<a href="https://www.freepik.com/free-ai-image/crunchy-homemade-french-fries-deep-fried-perfection-generated-by-ai_42648009.htm#fromView=search&page=1&position=0&uuid=c206d28d-e1f1-4107-a00f-47fe179877bc" class="text-white">Image by vecstock on Freepik</a>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<img src="img\grilled-steak-cooked-rare-served-with-savory-sauce-salad-generated-by-artificial-intelligence.jpg" class="d-block w-100" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+							<a class="text-white">
+								<h5>Feeling hungry? Find your next meal here!</h5>
+							</a>
+							<a href="https://www.freepik.com/free-ai-image/grilled-steak-cooked-rare-served-with-savory-sauce-salad-generated-by-artificial-intelligence_122388964.htm#fromView=search&page=1&position=26&uuid=10fe4d8f-8165-47c6-9339-31ab9d0d5325" class="text-white">Image by vecstock on Freepik</a>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<img src="img\fresh-salad-with-grilled-vegetables-healthy-delicious-lunch-option-generated-by-artificial-intelligence.jpg" class="d-block w-100" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+							<a href="{{ path('recipes') }}" class="text-white">
+								<h5>Hungry for inspiration? See our recipes here!</h5>
+							</a>
+							<a href="https://www.freepik.com/free-ai-image/fresh-salad-with-grilled-vegetables-healthy-delicious-lunch-option-generated-by-artificial-intelligence_132767768.htm#fromView=search&page=2&position=39&uuid=0ab4d10d-b76c-404b-b179-2c0cb6ea3008" class="text-white">Image by vecstock on Freepik</a>
+						</div>
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	{# Recipe Modal View here #}
+	{% for recipe in recipes %}
+		{% include 'modal/showrecipe.html.twig' with {'recipe': recipe } %}
+	{% endfor %}
 
 {% endblock %}

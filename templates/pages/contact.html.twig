@@ -3,22 +3,25 @@
 {% block body %}
     <div class="row">
         <div class="col-12">
-            <h3 class="my-5 d-flex justify-content-center text-white">Contact me if you have any question</h3>
-            <form class="d-flex align-items-center flex-column">
-                <div class="mb-3 w-50">
-                    <label for="fullNameInput" class="form-label text-white">Full Name</label>
-                    <input type="text" class="form-control" id="fullNameInput" aria-describedby="fullNameHelp">
-                </div>
-                <div class="mb-3 w-50">
-                    <label for="emailInput" class="form-label text-white">Email address</label>
-                    <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3 w-50">
-                    <label for="messageTextarea" class="form-label text-white">Leave your message here</label>
-                    <textarea class="form-control" id="messageTextarea" placeholder="Text here" style="height: 100px"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            <h3 class="my-5 d-flex justify-content-center text-white">Contact me if you have any questions</h3>
+            {{ form_start(form, {'attr': {'class': 'd-flex align-items-center flex-column'}}) }}
+            <div class="mb-3 w-50">
+                {{ form_label(form.fullName, 'Full Name', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.fullName) }}
+                {{ form_errors(form.fullName) }}
+            </div>
+            <div class="mb-3 w-50">
+                {{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="mb-3 w-50">
+                {{ form_label(form.message, 'Leave your message here', {'label_attr': {'class': 'form-label text-white'}}) }}
+                {{ form_widget(form.message) }}
+                {{ form_errors(form.message) }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

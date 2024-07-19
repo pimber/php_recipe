@@ -4,6 +4,8 @@ namespace App\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 class AppExtension extends AbstractExtension
@@ -22,4 +24,5 @@ class AppExtension extends AbstractExtension
         }
         return $string;
     }
+
 }

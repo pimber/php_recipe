@@ -10,19 +10,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use App\Entity\Recipe;
 use App\Form\CreateNewRecipeType;
+use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name:'home')]
-    public function homepage(): Response
+    public function homepage(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
+
+        // This is just to fetch 3 recipes from DB - I want it to fetch 3 random every day at midnight
+        $recipes = $entityManager->getRepository(Recipe::class)->findBy([], ['id' => 'DESC'], 3);
+        
+        $owner = false;
+
         return $this->render('pages/homepage.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'recipes' => $recipes,
+            'owner' => $owner,
         ]);
     }
 
@@ -65,9 +76,35 @@ class HomeController extends AbstractController
     }
 
     #[Route('/contact', name:'contact')]
-    public function contact(): Response
+    public function contact(Request $request, MailerInterface $mailer): Response
     {
-        return $this->render('pages/contact.html.twig');
+        // Create a form for the contact page
+        $form = $this->createForm(ContactType::class);
+
+        // Handle the form submission
+        $form->handleRequest($request);
+
+        // If the form is submitted and valid, send an email
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $emailMessage = (new Email())
+                ->from($data['email'])
+                ->to('oldefarsopskrifter@outlook.dk')
+                ->subject('Contact form submission')
+                ->text("You have a new message from {$data['fullName']} ({$data['email']}):\n\n{$data['message']}");
+
+            $mailer->send($emailMessage);
+
+            // Send a success message to the user
+            $this->addFlash('success', 'Your message has been sent successfully!');
+
+            return $this->redirectToRoute('contact');
+        }
+
+        return $this->render('pages/contact.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/myrecipes', name:'myrecipes')]
