@@ -23,8 +23,8 @@
 								{{ form_widget(form.ingredients) }}
 								<hr>
 								{% for ingredientForm in form.ingredients %}
-									<div class="d-flex flex-row">
-										<div class="col-4 me-1">
+									<div class="row">
+										<div class="col-4">
 											{{ form_label(ingredientForm.ingredient) }}
 											{{ form_widget(ingredientForm.ingredient) }}
 										</div>
@@ -32,7 +32,7 @@
 											{{ form_label(ingredientForm.amount) }}
 											{{ form_widget(ingredientForm.amount) }}
 										</div>
-										<div class="col-4 me-1">
+										<div class="col-4">
 											{{ form_label(ingredientForm.ingredientAmountType) }}
 											{{ form_widget(ingredientForm.ingredientAmountType) }}
 										</div>
@@ -74,39 +74,41 @@
 	</div>
 </div>
 
-	<script>
-		document.addEventListener('DOMContentLoaded', function () { // Get elements (List of ingredients and the ADD button) from DOM
-var ingredientsWrapper = document.getElementById('ingredients-wrapper');
-var addIngredientButton = document.getElementById('add-ingredient');
+<script>
 
-addIngredientButton.addEventListener('click', function () { // The new ingredient HTML
-var newIngredient = ingredientsWrapper.dataset.prototype;
-// Ingredient index in the list
-var index = ingredientsWrapper.dataset.index;
-// Set index on the new ingredients
-newIngredient = newIngredient.replace(/__name__/g, index)
-// Add classes to divs
-newIngredient = newIngredient.replace('create_new_recipe_ingredients_' + index, 'create_new_recipe_ingredients_' + index + '" class="d-flex flex-row remove" ');
-newIngredient = newIngredient.replaceAll('<div>', '<div class="col-3 pe-2">');
-// Add remove button to ingredient
-var removeBtn = `<div class="col-3 d-flex align-items-end">
-                    <button type="button" class="btn btn-danger remove-ingredient">Remove</button>
-                </div>`
-newIngredient = newIngredient.replace('</div></div>', '</div>' + removeBtn + '</div>');
+document.addEventListener('DOMContentLoaded', function () { // Get elements (List of ingredients and the ADD button) from DOM
+	var ingredientsWrapper = document.getElementById('ingredients-wrapper');
+	var addIngredientButton = document.getElementById('add-ingredient');
 
-// Count up index
-ingredientsWrapper.dataset.index ++;
+	addIngredientButton.addEventListener('click', function () { // The new ingredient HTML
+	var newIngredient = ingredientsWrapper.dataset.prototype;
+	// Ingredient index in the list
+	var index = ingredientsWrapper.dataset.index;
+	// Set index on the new ingredients
+	newIngredient = newIngredient.replace(/__name__/g, index)
+	// Add classes to divs
+	newIngredient = newIngredient.replace('create_new_recipe_ingredients_' + index, 'create_new_recipe_ingredients_' + index + '" class="d-flex flex-row justify-content-between remove" ');
+	newIngredient = newIngredient.replaceAll('<div>', '<div class="w-100 pe-2">');
+	// Add remove button to ingredient
+	var removeBtn = `<div class="d-flex align-items-end">
+						<button type="button" class="btn btn-danger remove-ingredient">Remove</button>
+					</div>`
+	newIngredient = newIngredient.replace('</div></div>', '</div>' + removeBtn + '</div>');
 
-// Show the new ingredient in HTML/DOM
-var newElement = document.createElement('div');
-newElement.innerHTML = newIngredient;
-ingredientsWrapper.appendChild(newElement);
+	// Count up index
+	ingredientsWrapper.dataset.index ++;
+
+	// Show the new ingredient in HTML/DOM
+	var newElement = document.createElement('div');
+	newElement.innerHTML = newIngredient;
+	ingredientsWrapper.appendChild(newElement);
+	});
+
+	ingredientsWrapper.addEventListener('click', function (event) {
+		if (event.target.classList.contains('remove-ingredient')) {
+			event.target.closest('.remove').remove();
+		}
+	});
 });
 
-ingredientsWrapper.addEventListener('click', function (event) {
-if (event.target.classList.contains('remove-ingredient')) {
-event.target.closest('.remove').remove();
-}
-});
-});
-	</script>
+</script>
