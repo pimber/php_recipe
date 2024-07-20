@@ -89,7 +89,7 @@ class HomeController extends AbstractController
             $data = $form->getData();
 
             $emailMessage = (new Email())
-                ->from($data['email'])
+                ->from('oldefarsopskrifter@outlook.dk')
                 ->to('oldefarsopskrifter@outlook.dk')
                 ->subject('Contact form submission')
                 ->text("You have a new message from {$data['fullName']} ({$data['email']}):\n\n{$data['message']}");
@@ -99,7 +99,7 @@ class HomeController extends AbstractController
             // Send a success message to the user
             $this->addFlash('success', 'Your message has been sent successfully!');
 
-            return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('pages/contact.html.twig', [

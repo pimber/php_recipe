@@ -66,7 +66,7 @@ class SecurityController extends AbstractController
                     'form' => $form->createView(),
                     'error' => 'This email is already in use',
                 ]);
-            }
+            }   
             
             // Encode the password
             $user->setPassword(
