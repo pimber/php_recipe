@@ -42,6 +42,17 @@
     {% include 'modal/showrecipe.html.twig' with {'recipe': recipe } %}
 {% endfor %}
 
+{# Delete recipe modal view here #}
+{% for recipe in recipes %}
+    {% include 'modal/deleterecipe.html.twig' with {'recipe': recipe } %}
+{% endfor %}
+
+{# Edit recipe modal view here #}
+
+{% for col in collection %}
+    {% include 'modal/editrecipe.html.twig' with {'id': col.id, 'form': col.formView } %}
+{% endfor %}
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Submit form on Enter press in input field

@@ -17,6 +17,7 @@ use App\Form\CreateNewRecipeType;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class HomeController extends AbstractController
 {
@@ -113,7 +114,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/myrecipes', name:'myrecipes')]
-    public function myrecipes(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
+    public function myrecipes(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator, FormFactoryInterface $formFactory): Response
     {
         /** @var User|null $user */
         $user = $this->getUser();
@@ -147,64 +148,120 @@ class HomeController extends AbstractController
             6 // Number of items per page
         );
 
-        // Form handling
+        $collection = [];
+
+        foreach ($recipes as $recipe) {
+            $recipeForm = $formFactory->createNamed($recipe->getId(), CreateNewRecipeType::class, $recipe);
+            $ingredients = [];
+            foreach ($recipe->getIngredients() as $ingredient) {
+                $ingredients[] = [
+                    'amount' => $ingredient->getAmount(),
+                    'ingredient' => $ingredient->getIngredientId()->getName(),
+                    'ingredientAmountType' => $ingredient->getIngredientAmountTypeId()->getType()
+                ];
+            }
+            $recipeForm->get('ingredients')->setData($ingredients);
+            $recipeForm->handleRequest($request);
+            $this->handleFormRequest($recipeForm, $recipe, $user, $entityManager);
+            $collection[] = [
+                'id' => $recipe->getId(),
+                'form' => $recipeForm,
+                'formView' => $recipeForm->createView()
+            ];
+        }
+
+        // Create Form handling
         $recipe = new Recipe();
         $form = $this->createForm(CreateNewRecipeType::class, $recipe);
 
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Iterate ingredients in the form
-            $ingredientsData = $form->get('ingredients')->getData();
-            foreach ($ingredientsData as $ingredientData) {
-                $ingredient = new IngredientAmount();
-                // Set amount
-                $ingredient->setAmount($ingredientData['amount']);
-
-                // Handle ingredient name
-                $name = $ingredientData['ingredient'];
-                $existingName = $entityManager->getRepository(Ingredient::class)->findOneBy(['name' => $name]);
-                if ($existingName) {
-                    $ingredient->setIngredientId($existingName);
-                } else {
-                    $newName = new Ingredient();
-                    $newName->setName($name);
-                    $entityManager->persist($newName);
-                    $ingredient->setIngredientId($newName);
-                }
-
-                // Handle amount type
-                $type = $ingredientData['ingredientAmountType'];
-                $existingType = $entityManager->getRepository(IngredientAmountType::class)->findOneBy(['type' => $type]);
-                if ($existingType) {
-                    $ingredient->setIngredientAmountTypeId($existingType);
-                } else {
-                    $newType = new IngredientAmountType();
-                    $newType->setType($type);
-                    $entityManager->persist($newType);
-                    $ingredient->setIngredientAmountTypeId($newType);
-                }
-
-                // Save ingredient
-                $entityManager->persist($ingredient);
-                $recipe->addIngredient($ingredient);
-            }
-
-            // Set user and created on for the recipe
-            $recipe->setUserId($user);
-            $recipe->setCreatedOn(new \DateTime());
-
-            $entityManager->persist($recipe);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('myrecipes');
-        }
-
+        $this->handleFormRequest($form, $recipe, $user, $entityManager);
+        
+        // Render the page
         return $this->render('pages/myrecipes.html.twig', [
             'form' => $form->createView(),
             'recipes' => $recipes,
             'searchTerm' => $searchTerm,
+            'collection' => $collection
         ]);
         
+    }
+
+    private function handleFormRequest($form, Recipe $newRecipe, User $user, EntityManagerInterface $entityManager)
+    {
+        
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return;
+        }
+        $id = $form->getName();
+        if ($id === 'create_new_recipe') {
+            $recipe = $newRecipe;
+            $new = true;
+        } else {
+            $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+            $new = false;
+        }
+
+        // Clear existing ingredients to avoid duplicates
+        foreach ($recipe->getIngredients() as $existingIngredient) {
+            $recipe->removeIngredient($existingIngredient);
+            $entityManager->remove($existingIngredient);
+        }
+        // Iterate ingredients in the form
+        $ingredientsData = $form->get('ingredients')->getData();
+        foreach ($ingredientsData as $ingredientData) {
+            $ingredient = new IngredientAmount();
+            // Set amount
+            $ingredient->setAmount($ingredientData['amount']);
+
+            // Handle ingredient name
+            $name = $ingredientData['ingredient'];
+            $existingName = $entityManager->getRepository(Ingredient::class)->findOneBy(['name' => $name]);
+            if ($existingName) {
+                $ingredient->setIngredientId($existingName);
+            } else {
+                $newName = new Ingredient();
+                $newName->setName($name);
+                $entityManager->persist($newName);
+                $ingredient->setIngredientId($newName);
+            }
+
+            // Handle amount type
+            $type = $ingredientData['ingredientAmountType'];
+            $existingType = $entityManager->getRepository(IngredientAmountType::class)->findOneBy(['type' => $type]);
+            if ($existingType) {
+                $ingredient->setIngredientAmountTypeId($existingType);
+            } else {
+                $newType = new IngredientAmountType();
+                $newType->setType($type);
+                $entityManager->persist($newType);
+                $ingredient->setIngredientAmountTypeId($newType);
+            }
+
+            // Save ingredient
+            $entityManager->persist($ingredient);
+            $recipe->addIngredient($ingredient);
+        }
+
+        // Set user and created on for the recipe
+        $recipe->setUserId($user);
+        if ($new) {
+            $recipe->setCreatedOn(new \DateTime());
+        }
+
+        $entityManager->persist($recipe);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('myrecipes');
+    }
+
+    #[Route('/delete/{id}', name:'delete')]
+    public function delete(EntityManagerInterface $entityManager, $id): Response
+    {
+        $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+        $entityManager->remove($recipe);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('myrecipes');
     }
 }

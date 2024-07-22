@@ -8,8 +8,8 @@
         </div>
         {% if owner %}
             <div class="d-flex flex-row justify-content-between mb-3">
-                <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">Edit</button>
-                <button class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">Delete</button>
+                <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#editModal{{ recipe.id }}">Edit</button>
+                <button class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteModal{{ recipe.id }}">Delete</button>
             </div>
         {% endif %}
     </div>   
