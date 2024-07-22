@@ -10,9 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[Vich\Uploadable]
+#[ORM\HasLifecycleCallbacks]
 class Recipe
 {
     #[ORM\Id]
@@ -54,6 +56,8 @@ class Recipe
 
     #[ORM\Column(type:"string", length:255, nullable:true)]
     private ?string $imageName = null;
+
+    private ?string $oldImageName = null;
 
     #[Vich\UploadableField(mapping: 'recipe_images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
@@ -201,6 +205,7 @@ class Recipe
 
     public function setImageName(?string $imageName): static
     {
+        $this->oldImageName = $this->imageName;
         $this->imageName = $imageName;
 
         return $this;
@@ -216,5 +221,22 @@ class Recipe
         $this->imageFile = $imageFile;
 
         return $this;
+    }
+
+    #[ORM\PreUpdate]
+    #[ORM\PostUpdate]
+    public function handleImageUpdate(LifecycleEventArgs $args): void
+    {
+        if ($this->oldImageName && $this->oldImageName !== $this->imageName) {
+            $this->deleteOldImage($this->oldImageName);
+        }
+    }
+
+    private function deleteOldImage(string $imageName): void
+    {
+        $filePath = __DIR__ . '/../../public/img/recipes/' . $imageName;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
     }
 }
