@@ -1,8 +1,8 @@
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="editModal{{ id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h1 class="modal-title fs-5" id="staticBackdropLabel">Create new recipe</h1>
+				<h1 class="modal-title fs-5" id="staticBackdropLabel">Update recipe</h1>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body" style="min-height: 75vh;">
@@ -18,12 +18,30 @@
 								{{ form_label(form.description) }}
 								{{ form_widget(form.description) }}
 							</div>
-							<div id="ingredients-wrapper" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}" data-index="{{ form.ingredients|length }}">
+							<div id="ingredients-wrapper{{ id }}" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}" data-index="{{ form.ingredients|length }}">
 								{{ form_label(form.ingredients) }}
-								{{ form_widget(form.ingredients) }}
 								<hr>
+                                {% for ingredientForm in form.ingredients %}
+									<div class="d-flex flex-row justify-content-between remove">
+                                        <div class="w-100 pe-2">
+											{{ form_label(ingredientForm.ingredient) }}
+											{{ form_widget(ingredientForm.ingredient) }}
+										</div>
+										<div class="w-100 pe-2">
+											{{ form_label(ingredientForm.amount) }}
+											{{ form_widget(ingredientForm.amount) }}
+										</div>
+										<div class="w-100 pe-2">
+											{{ form_label(ingredientForm.ingredientAmountType) }}
+											{{ form_widget(ingredientForm.ingredientAmountType) }}
+										</div>
+										<div class="d-flex align-items-end">
+											<button type="button" class="btn btn-danger remove-ingredient">Remove</button>
+										</div>
+									</div>
+								{% endfor %}
 							</div>
-							<button type="button" id="add-ingredient-create" class="btn btn-success mt-3">Add Ingredient</button>
+							<button type="button" id="add-ingredient{{ id }}" class="btn btn-success mt-3">Add Ingredient</button>
 							<hr>
 							<div class="mb-3">
 								{{ form_label(form.cook_time_hour) }}
@@ -41,7 +59,7 @@
 								{{ form_label(form.prep_time_min) }}
 								{{ form_widget(form.prep_time_min) }}
 							</div>
-							<button type="submit" class="btn btn-success mb-3">Submit Recipe
+							<button type="submit" class="btn btn-success mb-3">Update recipe
 							</button>
 						</div>
 					</div>
@@ -59,8 +77,8 @@
 
 document.addEventListener('DOMContentLoaded', function () { 
 	// Get elements (List of ingredients and the ADD button) from DOM
-	var ingredientsWrapper = document.getElementById('ingredients-wrapper');
-	var addIngredientButton = document.getElementById('add-ingredient-create');
+	var ingredientsWrapper = document.getElementById('ingredients-wrapper{{ id }}');
+	var addIngredientButton = document.getElementById('add-ingredient{{ id }}');
 
 	addIngredientButton.addEventListener('click', function () { 
 		
