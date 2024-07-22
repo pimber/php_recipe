@@ -14,13 +14,13 @@
 {% if app.user %}
 <a href="{{ path('edit') }}">
     <div class="rounded-circle bg-primary p-2" style="margin-top: 50px;">
-        <img src="/icons/person_settings.svg" class="icon-img" style="height: auto; width: 25px" alt="Login">
+        <img src="{{ asset('icons/person_settings.svg') }}" class="icon-img" style="height: auto; width: 25px" alt="Login">
     </div>
 </a>
 {% else %}
 <a href="{{ path('login') }}">
     <div class="rounded-circle bg-primary p-2" style="margin-top: 50px;">
-        <img src="/icons/person.svg" class="icon-img" style="height: auto; width: 25px" alt="Login">
+        <img src="{{ asset('icons/person.svg') }}" class="icon-img" style="height: auto; width: 25px" alt="Login">
     </div>
 </a>
 {% endif %}
@@ -33,10 +33,10 @@ document.getElementById('navbar-mobile').addEventListener('click', function(even
 
     if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
         dropdownMenu.style.display = 'block';
-        navbarMobileIcon.src = '/icons/close_menu.svg'; // Change the icon to close menu
+        navbarMobileIcon.src = '{{ asset('icons/close_menu.svg') }}'; // Change the icon to close menu
     } else {
         dropdownMenu.style.display = 'none';
-        navbarMobileIcon.src = '/icons/hamburger.svg'; // Change the icon to hamburger menu
+        navbarMobileIcon.src = '{{ asset('icons/hamburger.svg') }}'; // Change the icon to hamburger menu
     }
 });
 
@@ -46,7 +46,7 @@ document.addEventListener('click', function(event) {
 
     if (event.target !== dropdownMenu && event.target !== navbarMobileIcon && !dropdownMenu.contains(event.target)) {
         dropdownMenu.style.display = 'none';
-        navbarMobileIcon.src = '/icons/hamburger.svg'; // Ensure icon is set to hamburger menu when menu is closed
+        navbarMobileIcon.src = '{{ asset('icons/hamburger.svg') }}'; // Ensure icon is set to hamburger menu when menu is closed
     }
 });
 </script>
