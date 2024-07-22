@@ -53,13 +53,9 @@ class Recipe
 
 
     #[ORM\Column(type:"string", length:255, nullable:true)]
-    #[Assert\File(mimeTypes:["image/jpeg", "image/png"], maxSize:"10M")]
     private ?string $imageName = null;
 
     #[Vich\UploadableField(mapping: 'recipe_images', fileNameProperty: 'imageName')]
-    /**
-     * @var File|null
-     */
     private ?File $imageFile = null;
 
     public function __construct()

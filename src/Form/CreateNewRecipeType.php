@@ -60,8 +60,8 @@ class CreateNewRecipeType extends AbstractType
                     new Image([
                         'mimeTypes' => ['image/jpeg', 'image/png'],
                         'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG)',
-                        'maxSize' => '10M',
-                        'maxSizeMessage' => 'The image should not be larger than 10MB',
+                        'maxSize' => '5M',
+                        'maxSizeMessage' => 'The image should not be larger than 5MB',
                     ])
                 ]
             ]);
