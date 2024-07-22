@@ -18,16 +18,47 @@ use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name:'home')]
-    public function homepage(Request $request, EntityManagerInterface $entityManager): Response
+    public function homepage(Request $request, EntityManagerInterface $entityManager, CacheInterface $cache): Response
     {
+        // Calculate the time until midnight
+        $now = new \DateTime();
+        $midnight = new \DateTime('tomorrow midnight');
+        $expiresAfter = $midnight->getTimestamp() - $now->getTimestamp();
+
+        $cacheKey = 'homepage_recipes';
+        $recipes = $cache->get($cacheKey, function(ItemInterface $item) use ($entityManager, $expiresAfter)
+        {
+            $item->expiresAfter($expiresAfter);
+            // Get database connection
+            $connection = $entityManager->getConnection();
+
+            // Build the raw SQL query for PostgreSQL
+            $sql = "SELECT * FROM recipe ORDER BY RANDOM() LIMIT 3";
+            $stmt = $connection->prepare($sql);
+            $result = $stmt->executeQuery();
+
+            // Fetch results as an associative array
+            $data = $result->fetchAllAssociative();
+
+            // Map results to Recipe entities
+            $recipes = [];
+            foreach ($data as $row) {
+                $recipe = $entityManager->getRepository(Recipe::class)->find($row['id']);
+                $recipes[] = $recipe;
+            }
+
+            return $recipes;
+        });
+
         $user = $this->getUser();
 
-        // This is just to fetch 3 recipes from DB - I want it to fetch 3 random every day at midnight
-        $recipes = $entityManager->getRepository(Recipe::class)->findBy([], ['id' => 'DESC'], 3);
+
         
         $owner = false;
 
