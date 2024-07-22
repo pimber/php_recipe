@@ -43,13 +43,18 @@ class HomeController extends AbstractController
         // Searchterm for the recipes
         $searchTerm = $request->query->get('search');
 
-        // Query builder for searching the recipes
-        $queryBuilder = $entityManager->getRepository(Recipe::class)->createQueryBuilder('r');
+        // Query builder for searching the recipes and user
+        $queryBuilder = $entityManager->getRepository(Recipe::class)->createQueryBuilder('r')
+            ->join('r.user_id', 'u')
+            ->join('r.ingredients', 'a')
+            ->join('a.ingredient_id', 'i');
 
         // Apply search filter if search term exists
         if ($searchTerm) {
             $queryBuilder
                 ->where('r.name LIKE :searchTerm')
+                ->orWhere('i.name LIKE :searchTerm')
+                ->orWhere('u.Name LIKE :searchTerm')
                 ->setParameter('searchTerm', '%' . $searchTerm . '%');
         }
 
@@ -118,14 +123,16 @@ class HomeController extends AbstractController
 
         // Query builder for searching the myrecipes
         $queryBuilder = $entityManager->getRepository(Recipe::class)->createQueryBuilder('r')
+            ->join('r.ingredients', 'a')
+            ->join('a.ingredient_id', 'i')
             ->where('r.user_id = :user_id')
             ->setParameter('user_id', $user->getId());
 
-        // Apply search filter if search term exists
+        
         if ($searchTerm) {
             $queryBuilder
-                ->andWhere('r.name LIKE :searchTerm')
-                ->leftJoin('r.ingredients', 'i') // Join with IngredientAmount entity alias 'i'
+                ->andwhere('r.name LIKE :searchTerm')
+                ->orWhere('i.name LIKE :searchTerm')
                 ->setParameter('searchTerm', '%' . $searchTerm . '%');
         }
 
