@@ -76,11 +76,14 @@
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () { // Get elements (List of ingredients and the ADD button) from DOM
+document.addEventListener('DOMContentLoaded', function () { 
+	// Get elements (List of ingredients and the ADD button) from DOM
 	var ingredientsWrapper = document.getElementById('ingredients-wrapper');
 	var addIngredientButton = document.getElementById('add-ingredient');
 
-	addIngredientButton.addEventListener('click', function () { // The new ingredient HTML
+	addIngredientButton.addEventListener('click', function () { 
+		
+	// The new ingredient HTML
 	var newIngredient = ingredientsWrapper.dataset.prototype;
 	// Ingredient index in the list
 	var index = ingredientsWrapper.dataset.index;
@@ -92,7 +95,8 @@ document.addEventListener('DOMContentLoaded', function () { // Get elements (Lis
 	// Add remove button to ingredient
 	var removeBtn = `<div class="d-flex align-items-end">
 						<button type="button" class="btn btn-danger remove-ingredient">Remove</button>
-					</div>`
+					</div>`;
+					
 	newIngredient = newIngredient.replace('</div></div>', '</div>' + removeBtn + '</div>');
 
 	// Count up index
