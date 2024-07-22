@@ -20,6 +20,8 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class HomeController extends AbstractController
 {
@@ -204,9 +206,10 @@ class HomeController extends AbstractController
         // Create Form handling
         $recipe = new Recipe();
         $form = $this->createForm(CreateNewRecipeType::class, $recipe);
-
         $form->handleRequest($request);
-        $this->handleFormRequest($form, $recipe, $user, $entityManager);
+        if ($this->handleFormRequest($form, $recipe, $user, $entityManager)) {
+            return $this->redirectToRoute('myrecipes');
+        }
         
         // Render the page
         return $this->render('pages/myrecipes.html.twig', [
@@ -220,7 +223,6 @@ class HomeController extends AbstractController
 
     private function handleFormRequest($form, Recipe $newRecipe, User $user, EntityManagerInterface $entityManager)
     {
-        
         if (!$form->isSubmitted() || !$form->isValid()) {
             return;
         }
@@ -238,6 +240,7 @@ class HomeController extends AbstractController
             $recipe->removeIngredient($existingIngredient);
             $entityManager->remove($existingIngredient);
         }
+
         // Iterate ingredients in the form
         $ingredientsData = $form->get('ingredients')->getData();
         foreach ($ingredientsData as $ingredientData) {
@@ -278,6 +281,20 @@ class HomeController extends AbstractController
         $recipe->setUserId($user);
         if ($new) {
             $recipe->setCreatedOn(new \DateTime());
+        }
+
+        // Handle file upload
+        /** @var UploadedFile $file */
+        $file = $form->get('imageFile')->getData();
+
+        if ($file) {
+            $newFilename = uniqid() . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('kernel.project_dir') . '/public/img/recipes/',
+                $newFilename
+            );
+
+            $recipe->setImageName($newFilename);
         }
 
         $entityManager->persist($recipe);

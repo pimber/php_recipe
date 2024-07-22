@@ -7,10 +7,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\Image;
 
 
 class CreateNewRecipeType extends AbstractType
@@ -49,6 +50,20 @@ class CreateNewRecipeType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'mapped' => false,
+            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Recipe Image : Only JPEG and PNG files under 5MB are allowed',
+                'required' => false,
+                'mapped' => false,
+                'attr' => ['class' => 'form-control'],
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG)',
+                        'maxSize' => '10M',
+                        'maxSizeMessage' => 'The image should not be larger than 10MB',
+                    ])
+                ]
             ]);
     }
 

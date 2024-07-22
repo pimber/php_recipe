@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
+#[Vich\Uploadable]
 class Recipe
 {
     #[ORM\Id]
@@ -46,6 +50,17 @@ class Recipe
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+
+    #[ORM\Column(type:"string", length:255, nullable:true)]
+    #[Assert\File(mimeTypes:["image/jpeg", "image/png"], maxSize:"10M")]
+    private ?string $imageName = null;
+
+    #[Vich\UploadableField(mapping: 'recipe_images', fileNameProperty: 'imageName')]
+    /**
+     * @var File|null
+     */
+    private ?File $imageFile = null;
 
     public function __construct()
     {
@@ -179,6 +194,30 @@ class Recipe
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): static
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): static
+    {
+        $this->imageFile = $imageFile;
 
         return $this;
     }
