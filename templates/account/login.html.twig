@@ -2,30 +2,32 @@
 
 {% block body %}
 
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-<div class="row">
-    <div class="col-12">
-        <h3 class="my-5 d-flex justify-content-center text-white">Login</h3>
-        <div class="d-flex align-items-center flex-column">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-            <div class="mb-3 w-50">
-                {{ form_label(form.Email, 'Email address', {'label_attr': {'class': 'form-label text-white'}}) }}
-                {{ form_widget(form.Email, {'attr': {
+	{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+	<div class="row">
+		<h3 class="my-5 d-flex justify-content-center text-white">Login</h3>
+		<div class="col-lg-3 col-md-2 col-sm-1"></div>
+		<div class="col-lg-6 col-md-8 col-sm-10 mb-4">
+			<div class="d-flex align-items-center flex-column">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+				<div class="mb-3 w-100">
+					{{ form_label(form.Email, 'Email address', {'label_attr': {'class': 'form-label text-white'}}) }}
+					{{ form_widget(form.Email, {'attr': {
                     'class': 'form-control',
                     'value': form.vars.value.last_email
                 }}) }}
-            </div>
-            <div class="mb-3 w-50">
-                {{ form_label(form.Password, 'Password', {'label_attr': {'class': 'form-label text-white'}}) }}
-                {{ form_widget(form.Password, {'attr': {'class': 'form-control'}} ) }}
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Login</button>
-            <a href="{{ path('register') }}" class="btn btn-outline-light">Don't have an acount? Click here to create one</a>
-        </div>
-    </div>
+				</div>
+				<div class="mb-3 w-100">
+					{{ form_label(form.Password, 'Password', {'label_attr': {'class': 'form-label text-white'}}) }}
+					{{ form_widget(form.Password, {'attr': {'class': 'form-control'}}
+					) }}
+				</div>
+				<button type="submit" class="btn btn-primary mb-2">Login</button>
+				<a href="{{ path('register') }}" class="btn btn-outline-light">Don't have an acount? Click here to create one</a>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-2 col-sm-1"></div>
+	</div>
 </div>
-{{ form_end(form) }}
-
-{% endblock %}
+{{ form_end(form) }}{% endblock %}
