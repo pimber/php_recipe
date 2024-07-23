@@ -52,6 +52,12 @@
     margin: 10px 0;
 }
 
+.img-card {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
 
 
 /****************************************
