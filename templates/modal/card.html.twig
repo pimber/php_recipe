@@ -1,6 +1,6 @@
 <div class="col-lg-4 col-md-6 col-sm-12 d-flex flex-row justify-content-center mb-4">
     <div class="card mx-2 mb-2" style="width: 18rem;">
-        <img src="{{ asset('img/recipes/' ~ recipe.imageName) }}" class="card-img-top" alt="...">
+        <img src="{{ asset('img/recipes/' ~ recipe.imageName) }}" class="card-img-top img-card" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{ recipe.name }}</h5>
             <p class="card-text">{{ recipe.description|truncateString(30) }}</p>
