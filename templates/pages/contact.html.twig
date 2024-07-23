@@ -1,27 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-12">
-            <h3 class="my-5 d-flex justify-content-center text-white">Contact me if you have any questions</h3>
-            {{ form_start(form, {'attr': {'class': 'd-flex align-items-center flex-column'}}) }}
-            <div class="mb-3 w-50">
-                {{ form_label(form.fullName, 'Full Name', {'label_attr': {'class': 'form-label text-white'}}) }}
-                {{ form_widget(form.fullName) }}
-                {{ form_errors(form.fullName) }}
-            </div>
-            <div class="mb-3 w-50">
-                {{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'form-label text-white'}}) }}
-                {{ form_widget(form.email) }}
-                {{ form_errors(form.email) }}
-            </div>
-            <div class="mb-3 w-50">
-                {{ form_label(form.message, 'Leave your message here', {'label_attr': {'class': 'form-label text-white'}}) }}
-                {{ form_widget(form.message) }}
-                {{ form_errors(form.message) }}
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            {{ form_end(form) }}
-        </div>
-    </div>
+	<div class="row">
+        <h3 class="my-5 d-flex justify-content-center text-white">Contact me if you have any questions</h3>
+		<div class="col-lg-3 col-md-2 col-sm-1"></div>
+		<div class="col-lg-6 col-md-8 col-sm-10 mb-4">
+			{{ form_start(form, {'attr': {'class': 'd-flex flex-column align-items-center'}}) }}
+			<div class="mb-3 w-100">
+				{{ form_label(form.fullName, 'Full Name', {'label_attr': {'class': 'form-label text-white'}}) }}
+				{{ form_widget(form.fullName) }}
+				{{ form_errors(form.fullName) }}
+			</div>
+			<div class="mb-3 w-100">
+				{{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'form-label text-white'}}) }}
+				{{ form_widget(form.email) }}
+				{{ form_errors(form.email) }}
+			</div>
+			<div class="mb-3 w-100">
+				{{ form_label(form.message, 'Leave your message here', {'label_attr': {'class': 'form-label text-white'}}) }}
+				{{ form_widget(form.message) }}
+				{{ form_errors(form.message) }}
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+			{{ form_end(form) }}
+		</div>
+		<div class="col-lg-3 col-md-2 col-sm-1"></div>
+	</div>
 {% endblock %}
