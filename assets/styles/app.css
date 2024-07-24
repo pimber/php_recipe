@@ -6,9 +6,12 @@
 
 .bg-image {
     background-image: url("../../public/img/background.jpeg");
-    background-size: cover;
-    background-position: top;
-    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the background image covers the entire element */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the background image from repeating */
+    height: 100vh; /* Ensures the element takes the full viewport height */
+    width: 100vw; /* Ensures the element takes the full viewport width */
+    overflow: hidden; /* Prevents any overflow issues */
 }
 
 .bg-center {
