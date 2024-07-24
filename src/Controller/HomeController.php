@@ -60,14 +60,12 @@ class HomeController extends AbstractController
 
         $user = $this->getUser();
 
-
-        
         $owner = false;
 
         return $this->render('pages/homepage.html.twig', [
             'user' => $user,
             'recipes' => $recipes,
-            'owner' => $owner,
+            'owner' => $owner
         ]);
     }
 
