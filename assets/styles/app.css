@@ -6,12 +6,18 @@
 
 .bg-image {
     background-image: url("../../public/img/background.jpeg");
-    background-size: cover; /* Ensures the background image covers the entire element */
-    background-position: center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the background image from repeating */
-    height: 100vh; /* Ensures the element takes the full viewport height */
-    width: 100vw; /* Ensures the element takes the full viewport width */
-    overflow: hidden; /* Prevents any overflow issues */
+    background-size: cover;
+    /* Ensures the background image covers the entire element */
+    background-position: center;
+    /* Centers the background image */
+    background-repeat: no-repeat;
+    /* Prevents the background image from repeating */
+    height: 100vh;
+    /* Ensures the element takes the full viewport height */
+    width: 100vw;
+    /* Ensures the element takes the full viewport width */
+    overflow: hidden;
+    /* Prevents any overflow issues */
 }
 
 .bg-center {
@@ -66,11 +72,11 @@
     color: #ffffff;
     padding-block: var(--b);
     background: linear-gradient(var(--c) 50%, #000 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
-                linear-gradient(var(--c) 0 0) 0% var(--_p, 0%) / var(--_p, 0%) var(--b) no-repeat;
+        linear-gradient(var(--c) 0 0) 0% var(--_p, 0%) / var(--_p, 0%) var(--b) no-repeat;
     -webkit-background-clip: text, padding-box;
     background-clip: text, padding-box;
     transition: 0.1s var(--_s, 0s) linear,
-                background-size 0.1s calc(0.1s - var(--_s, 0s));
+        background-size 0.1s calc(0.1s - var(--_s, 0s));
     text-decoration: none;
     /* Disable default underline */
 }
@@ -123,4 +129,39 @@
 
 .textarea-pre-wrap {
     white-space: pre-wrap;
+}
+
+/****************************************
+    Register success page
+****************************************/
+.reg-body {
+    text-align: center;
+    padding: 40px 0;
+}
+.reg-h1 {
+    color: #88B04B;
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+.reg-p {
+    color: #404F5E;
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-size: 20px;
+    margin: 0;
+}
+.reg-i {
+    color: #9ABC66;
+    font-size: 100px;
+    line-height: 200px;
+    margin-left: -15px;
+}
+.reg-card {
+    background: white;
+    padding: 60px;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px #C8D0D8;
+    display: inline-block;
+    margin: 0 auto;
 }

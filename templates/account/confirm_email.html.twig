@@ -2,13 +2,16 @@
 
 {% block body %}
 
-<div class="row">
-        <div class="col-12">
-            <div class="d-flex flex-column w-50 mx-auto bg-primary p-4 mt-5 rounded">
-                <h3 class="text-white">Registration Succesful - Please verify your email!</h3>
-                <h5 class="text-white">A confirmatin email has been sent to the registered email. Check your spam folder if the email is not visible in the inbox after a short moment.</h5>
+	<div class="reg-body d-flex justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10 mb-4">
+            <div class="reg-card">
+                <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+                    <i class="checkmark reg-i">✓</i>
+                </div>
+                <h1 class="reg-h1 my-4">Registrering gennemført. Bekræft venligst din email!</h1>
+                <p class="reg-p">En bekræftelsesemail er blevet sendt til den registrerede email. Tjek din spam-mappe, hvis emailen ikke er synlig i indbakken efter et kort øjeblik.</p>
             </div>
         </div>
-    </div>
+	</div>
 
 {% endblock %}
