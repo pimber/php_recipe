@@ -7,7 +7,7 @@
         {% endif %}
         <div class="card-body">
             <h5 class="card-title">{{ recipe.name }}</h5>
-            <p class="card-text">{{ recipe.description|truncateString(30) }}</p>
+            <p class="card-text">{{ recipe.description|truncateString(72) }}</p>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">Open recipe</button>
         </div>
         {% if owner %}
