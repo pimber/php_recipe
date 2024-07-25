@@ -52,7 +52,7 @@ class CreateNewRecipeType extends AbstractType
                 'mapped' => false,
             ])
             ->add('imageFile', FileType::class, [
-                'label' => 'Recipe Image : Only JPEG and PNG files under 5MB are allowed',
+                'label' => 'Recipe Image : Only JPEG and PNG files under 2MB are allowed',
                 'required' => false,
                 'mapped' => false,
                 'attr' => ['class' => 'form-control'],
@@ -60,8 +60,8 @@ class CreateNewRecipeType extends AbstractType
                     new Image([
                         'mimeTypes' => ['image/jpeg', 'image/png'],
                         'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG)',
-                        'maxSize' => '5M',
-                        'maxSizeMessage' => 'The image should not be larger than 5MB',
+                        'maxSize' => '2M',
+                        'maxSizeMessage' => 'The image should not be larger than 2MB',
                     ])
                 ]
             ]);

@@ -20,7 +20,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class HomeController extends AbstractController
@@ -34,29 +33,28 @@ class HomeController extends AbstractController
         $expiresAfter = $midnight->getTimestamp() - $now->getTimestamp();
 
         $cacheKey = 'homepage_recipes';
-        $recipes = $cache->get($cacheKey, function(ItemInterface $item) use ($entityManager, $expiresAfter)
+
+        $data = $cache->get($cacheKey, function(ItemInterface $item) use ($entityManager, $expiresAfter)
         {
             $item->expiresAfter($expiresAfter);
             // Get database connection
             $connection = $entityManager->getConnection();
 
             // Build the raw SQL query for PostgreSQL
-            $sql = "SELECT * FROM recipe ORDER BY RANDOM() LIMIT 3";
+            $sql = "SELECT r.id FROM recipe as r ORDER BY RANDOM() LIMIT 3";
             $stmt = $connection->prepare($sql);
             $result = $stmt->executeQuery();
 
             // Fetch results as an associative array
-            $data = $result->fetchAllAssociative();
-
-            // Map results to Recipe entities
-            $recipes = [];
-            foreach ($data as $row) {
-                $recipe = $entityManager->getRepository(Recipe::class)->find($row['id']);
-                $recipes[] = $recipe;
-            }
-
-            return $recipes;
+            return $result->fetchAllAssociative();
         });
+        
+        // Map results to Recipe entities
+        $recipes = [];
+        foreach ($data as $row) {
+            $recipe = $entityManager->getRepository(Recipe::class)->find($row['id']);
+            $recipes[] = $recipe;
+        }
 
         $user = $this->getUser();
 
