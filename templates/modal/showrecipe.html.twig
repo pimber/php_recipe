@@ -9,8 +9,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="d-flex flex-row justify-content-between">
-                            <p class="fs-6">Made by: {{ recipe.userId.name }}</p>
-                            <p class="fs-6">Created on: {{ recipe.createdOn|date('Y-m-d') }}</p>
+                            <p class="fs-6">Lavet af: {{ recipe.userId.name }}</p>
+                            <p class="fs-6">Oprettet den: {{ recipe.createdOn|date('Y-m-d') }}</p>
                         </div>
                         <div class="col-lg-6 col-sm-12 mb-2 ">
                             <ul class="list-group">
@@ -25,11 +25,11 @@
                         </div>
                         <div class="col-lg-6 col-sm-12 mb-2">
                             <div class="d-flex flex-column h-100 border rounded pt-2 px-2">
-                                <h5>Instructions</h5>
+                                <h5>Sådan gør du:</h5>
                                 <p class="fs-6 textarea-pre-wrap">{{ recipe.description }}</p>
                                     <div class="d-flex flex-row justify-content-between mt-auto" style="margin-bottom: -15px;">
-                                    <p>Prep time: {{ recipe.prepTimeHour }} h {{ recipe.prepTimeMin }} min </p>
-                                    <p>Cook time: {{ recipe.cookTimeHour }} h {{ recipe.cookTimeMin }} min </p>
+                                    <p>Forberedelsestid: {{ recipe.prepTimeHour }} h {{ recipe.prepTimeMin }} min </p>
+                                    <p>Tilberedningstid: {{ recipe.cookTimeHour }} h {{ recipe.cookTimeMin }} min </p>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
             </div>
         </div>
     </div>

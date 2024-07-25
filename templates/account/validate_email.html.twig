@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Email Confirmation</title>
+    <title>Email bekræftelse</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,25 +43,25 @@
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h2>Email Confirmation</h2>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h2>Email bekræftelse</h2>
+            </div>
+            <div class="content">
+                <p>Hej,</p>
+                <p>Tak fordi du har tilmeldt dig hos oldefarsopskrifter. Bekræft venligst din emailadresse ved at klikke på knappen nedenfor:</p>
+                <p style="text-align: center;">
+                    <a href="{{ confirmation_link }}">
+                        <button class="button">Bekræft Email</button>
+                    </a>
+                </p>
+                <p>Hvis du ikke har tilmeldt dig denne konto, skal du blot ignorere denne email.</p>
+            </div>
+            <div class="footer">
+                <p>Med venlig hilsen,</p>
+                <p>Oldefars Opskrifter</p>
+            </div>
         </div>
-        <div class="content">
-            <p>Hi there,</p>
-            <p>Thank you for signing up. Please confirm your email address by clicking the button below:</p>
-            <p style="text-align: center;">
-                <a href="{{ confirmation_link }}">
-                    <button class="button">Confirm Email</button>
-                </a>
-            </p>
-            <p>If you did not sign up for this account, please ignore this email.</p>
-        </div>
-        <div class="footer">
-            <p>Best regards,</p>
-            <p>Oldefars Opskrifter</p>
-        </div>
-    </div>
-</body>
+    </body>
 </html>

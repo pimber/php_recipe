@@ -3,12 +3,12 @@
 {% block body %}
 
 	<div class="row">
-		<h3 class="my-5 d-flex justify-content-center text-white">Craving something delicious? Find your perfect recipe here!</h3>
+		<h3 class="my-5 d-flex justify-content-center text-white">Lyst til noget lækkert? Find din perfekte opskrift her!</h3>
 		<div class="col-lg-3 col-md-2 col-sm-1"></div>
 		<div class="col-lg-6 col-md-8 col-sm-10 mb-4">
 			<form id="searchForm" action="{{ path('recipes') }}" method="get" class="d-flex flex-column align-items-center">
 				<input type="text" id="searchInput" class="form-control mb-2" name="search" placeholder="Search for recipe" value="{{ searchTerm }}">
-				<button type="submit" class="btn btn-primary">Search</button>
+				<button type="submit" class="btn btn-primary">Søg</button>
 			</form>
 		</div>
 		<div class="col-lg-3 col-md-2 col-sm-1 d-flex justify-content-end align-items-start"></div>

@@ -21,28 +21,28 @@ class RegistrationFormType extends AbstractType
             ->add('name', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter your name',
+                        'message' => 'Indtast venligst dit navn',
                     ]),
                     new Length([
                         'min' => 2,
-                        'minMessage' => 'Your name should be more than 2 characters',
+                        'minMessage' => 'Dit navn skal indeholde mere end 2 tegn',
                         'max' => 60,
-                        'maxMessage' => 'Your name should be les than 60 characters',
+                        'maxMessage' => 'Dit navn kan ikke være længere end 60 tegn',
                     ]),
                 ]
             ])
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter an email',
+                        'message' => 'Indtast venligst din email',
                     ]),
                     new Length([
                         'max' => 60,
-                        'maxMessage' => 'Your email should be shorter than 60 characters',
+                        'maxMessage' => 'Din email kan ikke være længere end 60 tegn',
                     ]),
                     new Regex([
                         'pattern' => '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
-                        'message' => 'Please enter a valid email',
+                        'message' => 'Indtast venligst en gyldig email',
                     ]),
                 ]
             ])
@@ -52,7 +52,7 @@ class RegistrationFormType extends AbstractType
                 'constraints' => [
                     new Regex([
                         'pattern' => '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/',
-                        'message' => 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.',
+                        'message' => 'Adgangskoden skal være mindst 8 tegn lang og indeholde mindst ét stort bogstav, ét lille bogstav, ét ciffer og ét specialtegn.',
                     ]),
                 ],
             ]);

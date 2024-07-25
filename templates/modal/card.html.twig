@@ -8,12 +8,12 @@
         <div class="card-body">
             <h5 class="card-title">{{ recipe.name }}</h5>
             <p class="card-text">{{ recipe.description|truncateString(72) }}</p>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">Open recipe</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">Se opskrift</button>
         </div>
         {% if owner %}
             <div class="d-flex flex-row justify-content-between mb-3">
-                <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#editModal{{ recipe.id }}">Edit</button>
-                <button class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteModal{{ recipe.id }}">Delete</button>
+                <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#editModal{{ recipe.id }}">Ændre</button>
+                <button class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteModal{{ recipe.id }}">Slet</button>
             </div>
         {% endif %}
     </div>   

@@ -20,27 +20,27 @@ class CreateNewRecipeType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Recipe Name',
+                'label' => 'Opskriftens navn',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('prep_time_hour', IntegerType::class, [
-                'label' => 'Prep Time (Hours)',
+                'label' => 'Forberedelsestid (timer)',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('prep_time_min', IntegerType::class, [
-                'label' => 'Prep Time (Minutes)',
+                'label' => 'Forberedelsestid (minutter)',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('cook_time_hour', IntegerType::class, [
-                'label' => 'Cooking Time (Hours)',
+                'label' => 'Tilberedningstid (timer)',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('cook_time_min', IntegerType::class, [
-                'label' => 'Cooking Time (Minutes)',
+                'label' => 'Tilberedningstid (minutter)',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Instructions',
+                'label' => 'Sådan gør du',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('ingredients', CollectionType::class, [
@@ -52,16 +52,16 @@ class CreateNewRecipeType extends AbstractType
                 'mapped' => false,
             ])
             ->add('imageFile', FileType::class, [
-                'label' => 'Recipe Image : Only JPEG and PNG files under 2MB are allowed',
+                'label' => 'Opskriftsbillede : Kun .jpg og .png filer under 2MB er tilladt',
                 'required' => false,
                 'mapped' => false,
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new Image([
                         'mimeTypes' => ['image/jpeg', 'image/png'],
-                        'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG)',
+                        'mimeTypesMessage' => 'Billede skal være i formatet .jpg eller .png',
                         'maxSize' => '2M',
-                        'maxSizeMessage' => 'The image should not be larger than 2MB',
+                        'maxSizeMessage' => 'Billedet må ikke være større end 2MB',
                     ])
                 ]
             ]);
