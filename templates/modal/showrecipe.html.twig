@@ -12,7 +12,7 @@
                             <p class="fs-6">Made by: {{ recipe.userId.name }}</p>
                             <p class="fs-6">Created on: {{ recipe.createdOn|date('Y-m-d') }}</p>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 ">
+                        <div class="col-lg-6 col-sm-12 mb-2 ">
                             <ul class="list-group">
                                 {% for ingredient in recipe.ingredients %}
                                     <li class="list-group-item d-flex flex-row justify-content-between">
@@ -23,7 +23,7 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-sm-12 mb-2">
                             <div class="d-flex flex-column h-100 border rounded pt-2 px-2">
                                 <h5>Instructions</h5>
                                 <p class="fs-6 textarea-pre-wrap">{{ recipe.description }}</p>
