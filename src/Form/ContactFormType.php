@@ -14,16 +14,16 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('fullName', TextType::class, [
-                'label' => 'Full Name',
+                'label' => 'Fulde navn',
                 'attr' => ['class' => 'form-control'],
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email Address',
+                'label' => 'Email adresse',
                 'attr' => ['class' => 'form-control'],
             ])
             ->add('message', TextareaType::class, [
-                'label' => 'Leave your message here',
-                'attr' => ['class' => 'form-control', 'style' => 'height: 100px'],
+                'label' => 'Efterlad din besked her',
+                'attr' => ['class' => 'form-control', 'style' => 'height: 200px'],
             ]);
     }
 

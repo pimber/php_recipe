@@ -12,15 +12,15 @@ class IngredientAmountFormType extends AbstractType
     {
         $builder
             ->add('ingredient', TextType::class, [
-                'label' => 'Name',
+                'label' => 'Navn',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('amount', TextType::class, [
-                'label' => 'Amount',
+                'label' => 'Mængde',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('ingredientAmountType', TextType::class, [
-                'label' => 'Type',
+                'label' => 'Enhed',
                 'attr' => ['class' => 'form-control']
             ]);
     }

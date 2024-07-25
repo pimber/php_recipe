@@ -42,7 +42,7 @@ security:
     access_control:
         - { path: ^/myrecipes, roles: ROLE_User }
         - { path: ^/edit, roles: ROLE_User }
-        # - { path: ^/confirm_email, roles: ROLE_User }
+        - { path: ^/confirm_email, roles: ROLE_User }
         # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
