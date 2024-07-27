@@ -8,7 +8,8 @@
         <div class="card-body">
             <h5 class="card-title">{{ recipe.name }}</h5>
             <p class="card-text">{{ recipe.description|truncateString(55) }}</p>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">Se opskrift</button>
+            {# <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ recipe.id }}">Se opskrift</button> #}
+            <a href="{{ path('opskrift', { 'id': recipe.id }) }}" class="btn btn-secondary">Se opskrift</a>
         </div>
         {% if owner %}
             <div class="d-flex flex-row justify-content-between mb-3">

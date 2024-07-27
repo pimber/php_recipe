@@ -3,11 +3,11 @@
 </div>
 <div id="dropdown-menu" class="dropdown-menu" style="margin-top: 20px;">
     <ul class="fs-5 navbar-nav">
-        <a href="{{ path('home') }}" class="d-flex justify-content-center text-black">Hjem</a>
-        <a href="{{ path('recipes') }}" class="d-flex justify-content-center text-black">Opskrifter</a>
-        <a href="{{ path('contact') }}" class="d-flex justify-content-center text-black">Kontakt</a>
+        <a href="{{ path('hjem') }}" class="d-flex justify-content-center text-black">Hjem</a>
+        <a href="{{ path('opskrifter') }}" class="d-flex justify-content-center text-black">Opskrifter</a>
+        <a href="{{ path('kontakt') }}" class="d-flex justify-content-center text-black">Kontakt</a>
         {% if app.user %}
-        <a href="{{ path('myrecipes') }}" class="d-flex justify-content-center text-black">Mine opskrifter</a>
+        <a href="{{ path('mine-opskrifter') }}" class="d-flex justify-content-center text-black">Mine opskrifter</a>
         {% endif %}
     </ul>
 </div>

@@ -6,7 +6,7 @@
     <h3 class="my-5 d-flex justify-content-center text-white">Leder du efter en af dine egne opskrifter? Find den her!</h3>
     <div class="col-lg-3 col-md-2 col-sm-1"></div>
     <div class="col-lg-6 col-md-8 col-sm-10 mb-4">
-        <form id="searchForm" action="{{ path('myrecipes') }}" method="get" class="d-flex flex-column align-items-center">
+        <form id="searchForm" action="{{ path('mine-opskrifter') }}" method="get" class="d-flex flex-column align-items-center">
             <input type="text" id="searchInput" class="form-control mb-2" name="search" placeholder="Search for recipe" value="{{ searchTerm }}">
             <div class="d-flex flex-wrap justify-content-between w-100">
                 <button type="submit" class="btn btn-primary mb-2 me-2">Søg</button>

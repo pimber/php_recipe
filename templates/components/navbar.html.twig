@@ -3,17 +3,17 @@
         <div id="navbarNav">
             <ul class="fs-5 navbar-nav">
                 <li class="nav-item px-4">
-                    <a href="{{ path('home') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'home' ? 'keep-hover-3' : '' }}">Hjem</a>
+                    <a href="{{ path('hjem') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'hjem' ? 'keep-hover-3' : '' }}">Hjem</a>
                 </li>
                 <li class="nav-item px-4">
-                    <a href="{{ path('recipes') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'recipes' ? 'keep-hover-3' : '' }}">Opskrifter</a>
+                    <a href="{{ path('opskrifter') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'opskrifter' ? 'keep-hover-3' : '' }}">Opskrifter</a>
                 </li>
                 <li class="nav-item px-4">
-                    <a href="{{ path('contact') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'contact' ? 'keep-hover-3' : '' }}">Kontakt</a>
+                    <a href="{{ path('kontakt') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'kontakt' ? 'keep-hover-3' : '' }}">Kontakt</a>
                 </li>
                 {% if app.user %}
                 <li class="nav-item px-4">
-                    <a href="{{ path('myrecipes') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'myrecipes' ? 'keep-hover-3' : '' }}">Mine opskrifter</a>
+                    <a href="{{ path('mine-opskrifter') }}" class="hover-3 {{ app.request.attributes.get('_route') == 'mine-opskrifter' ? 'keep-hover-3' : '' }}">Mine opskrifter</a>
                 </li>
                 {% endif %}
             </ul>
