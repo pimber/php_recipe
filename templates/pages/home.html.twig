@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div id="homepage" class="container">
+		<h1 class="text-center my-5">Velkommen til Oldefars Opskrifter</h1>
+		<div class="row mb-4">
+			<div class="col-12 d-flex flex-row flex-wrap">
+				<div class="col-lg-9 col-sm-7">
+					<p class="text-green"><strong>3 tilfældigt udvalgte opskrifter hver dag</strong></p>
+					<p class="fs-1">Dagens Menu</p>
+					<p class="fs-4">Knurrer maven ikke efter lige netop de her retter? Oplev hele vores udvalg af opskrifter og sammensæt din helt egen menu.</p>
+				</div>
+				<div class="col-lg-3 col-sm-5 d-flex justify-content-end align-self-start mt-3 mt-sm-0">
+					<a href="{{ path('recipes') }}" class="btn btn-primary">Se alle opskrifter <img src="{{ asset('icons/arrow_right.svg') }}"></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			{% for recipe in recipes %}
+				{% include 'modal/card.html.twig' with {'recipe': recipe } %}
+			{% endfor %}
+		</div>
+	</div>
+
+	{# Recipe Modal View here #}
+	{% for recipe in recipes %}
+		{% include 'modal/showrecipe.html.twig' with {'recipe': recipe } %}
+	{% endfor %}
+
+{% endblock %}

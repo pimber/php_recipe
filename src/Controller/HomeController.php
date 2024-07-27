@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name:'hjem')]
+    #[Route('/', name:'home')]
     public function homepage(Request $request, EntityManagerInterface $entityManager, CacheInterface $cache): Response
     {
         // Calculate the time until midnight
@@ -60,14 +60,14 @@ class HomeController extends AbstractController
 
         $owner = false;
 
-        return $this->render('pages/hjem.html.twig', [
+        return $this->render('pages/home.html.twig', [
             'user' => $user,
             'recipes' => $recipes,
             'owner' => $owner
         ]);
     }
 
-    #[Route('/opskrifter', name: 'opskrifter')]
+    #[Route('/opskrifter', name: 'recipes')]
     public function recipes(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
         // Searchterm for the recipes
@@ -103,14 +103,14 @@ class HomeController extends AbstractController
         $owner = false;
 
         // Render the page
-        return $this->render('pages/opskrifter.html.twig', [
+        return $this->render('pages/recipes.html.twig', [
             'recipes' => $recipes,
             'owner' => $owner, // Pass the owner variable to the template
             'searchTerm' => $searchTerm // Pass the search term to the template
         ]);
     }
 
-    #[Route('/opskrifter/{id}', name: 'opskrift')]
+    #[Route('/opskrifter/{id}', name: 'recipe')]
     public function recipe($id, EntityManagerInterface $entityManager): Response
     {
         // Get the recipe from the database
@@ -130,7 +130,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/kontakt', name:'kontakt')]
+    #[Route('/kontakt', name:'contact')]
     public function contact(Request $request, MailerInterface $mailer): Response
     {
         // Create a form for the contact page
@@ -157,12 +157,12 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('pages/kontakt.html.twig', [
+        return $this->render('pages/contact.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/mine-opskrifter', name:'mine-opskrifter')]
+    #[Route('/mine-opskrifter', name:'myrecipes')]
     public function myrecipes(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator, FormFactoryInterface $formFactory): Response
     {
         /** @var User|null $user */
@@ -228,7 +228,7 @@ class HomeController extends AbstractController
         }
         
         // Render the page
-        return $this->render('pages/mineopskrifter.html.twig', [
+        return $this->render('pages/myrecipes.html.twig', [
             'form' => $form->createView(),
             'recipes' => $recipes,
             'searchTerm' => $searchTerm,
@@ -319,13 +319,13 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('myrecipes');
     }
 
-    #[Route('/slet/{id}', name:'slet')]
+    #[Route('/slet/{id}', name:'delete')]
     public function delete(EntityManagerInterface $entityManager, $id): Response
     {
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);
         $entityManager->remove($recipe);
         $entityManager->flush();
 
-        return $this->redirectToRoute('mine-opskrifter');
+        return $this->redirectToRoute('myrecipes');
     }
 }
