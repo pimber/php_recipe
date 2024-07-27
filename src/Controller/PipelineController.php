@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class HomeController extends AbstractController
+class PipelineController extends AbstractController
 {
     
     #[Route("/pipeline", name:"pipeline", methods: ["POST"])]
