@@ -21,7 +21,7 @@ use Twig\Loader\FilesystemLoader;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/login', name: 'login')] 
+    #[Route('/log-ind', name: 'login')] 
     public function auth(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) return $this->redirectToRoute('home');
@@ -42,7 +42,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/logout', name: 'logout')]
+    #[Route('/log-ud', name: 'logout')]
     public function logout()
     {
         // controller can be blank: it will never be executed!
@@ -50,7 +50,7 @@ class SecurityController extends AbstractController
     }
 
     
-    #[Route('/register', name:'register')]
+    #[Route('/registering', name:'register')]
     public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper, MailerInterface $mailer): Response
     {
         $user = new User();
@@ -120,7 +120,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/verify', name: 'verify_email')]
+    #[Route('/validering', name: 'verify_email')]
     public function verifyUserEmail(Request $request, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
     {
         // Match ID of the user
@@ -154,13 +154,13 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('login');
     }
 
-    #[Route('/confirm_email', name: 'confirm_email')]
+    #[Route('/konfirmation_email', name: 'confirm_email')]
     public function confirmUserEmail() : Response
     {
         return $this->render('account/confirm_email.html.twig');
     }
 
-    #[Route('/edit', name:'edit')]
+    #[Route('/opdatere', name:'edit')]
     public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         // Says that user is the type of User or null

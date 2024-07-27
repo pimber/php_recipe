@@ -1,63 +1,19 @@
 @import 'bootstrap';
 
+:root {
+    --green : #087443;
+}
 /****************************************
-    Main layout
+    Home page
 ****************************************/
 
-.bg-image {
-    background-image: url("../../public/img/background.jpeg");
-    background-size: cover;
-    /* Ensures the background image covers the entire element */
-    background-position: center;
-    /* Centers the background image */
-    background-repeat: no-repeat;
-    /* Prevents the background image from repeating */
-    height: 100vh;
-    /* Ensures the element takes the full viewport height */
-    width: 100vw;
-    /* Ensures the element takes the full viewport width */
-    overflow: hidden;
-    /* Prevents any overflow issues */
+#homepage p {
+    
 }
 
-.bg-center {
-    background-color: #ffffff12;
+.text-green {
+    color: var(--green);
 }
-
-#navbar-mobile-container {
-    position: relative;
-}
-
-.dropdown-menu {
-    display: none;
-    top: 75px;
-    /* Adjust based on your navbar height */
-    background-color: white;
-    /* Adjust as needed */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    /* Optional for a shadow effect */
-    border-radius: 5px;
-    /* Optional for rounded corners */
-    z-index: 1000;
-    /* Ensure it appears above other elements */
-}
-
-.dropdown-menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 10px;
-}
-
-.dropdown-menu .nav-item {
-    margin: 10px 0;
-}
-
-.card-img-top {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
 
 
 /****************************************
@@ -66,10 +22,10 @@
 .hover-3 {
     --b: 2px;
     /* Increase the thickness of the line */
-    --c: #b8b8b8;
+    --c: #087443;
     /* Change the color to white */
 
-    color: #ffffff;
+    color: #000000;
     padding-block: var(--b);
     background: linear-gradient(var(--c) 50%, #000 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
         linear-gradient(var(--c) 0 0) 0% var(--_p, 0%) / var(--_p, 0%) var(--b) no-repeat;
@@ -78,21 +34,37 @@
     transition: 0.1s var(--_s, 0s) linear,
         background-size 0.1s calc(0.1s - var(--_s, 0s));
     text-decoration: none;
-    /* Disable default underline */
 }
 
 .hover-3:hover {
     --_p: 100%;
     --_s: 0.1s;
-    color: #b8b8b8;
+    color: #087443;
     /* Change text color on hover */
 }
 
 .keep-hover-3 {
     --_p: 100%;
     --_s: 0.1s;
-    color: #b8b8b8;
+    color: #087443;
     /* Change text color on hover */
+}
+
+.dropdown-menu {
+    top: 80px;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu ul li {
+    padding: 10px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
 }
 
 /* Hide #navbar below 992px */
@@ -164,4 +136,35 @@
     box-shadow: 0 2px 3px #C8D0D8;
     display: inline-block;
     margin: 0 auto;
+}
+
+/****************************************
+    Footer
+****************************************/
+
+.footer-bg {
+    background-color: #087443;
+    color: #ffffff;
+    padding: 40px 0;
+}
+
+.footer-bg a {
+    color: #ffffff;
+    margin-right: 20px; /* Space between links */
+    font-size: large;
+    text-decoration: none;
+}
+
+/* Hide #footer below 992px */
+@media (max-width: 992px) {
+    #footer {
+        display: none;
+    }
+}
+
+/* Hide #footer from 992px onwards */
+@media (min-width: 992px) {
+    #footer-mobile {
+        display: none;
+    }
 }

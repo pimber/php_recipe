@@ -15,30 +15,17 @@
         {% endblock %}
     </head>
     <body>
-        <div class="bg-image overflow-auto" style="scrollbar-width: none;">
-            <div class="container bg-center d-flex flex-column min-vh-100">
-                <div class="row">
-                    <div class="col-lg-1 "></div>
-                    {# Normal navbar #}
-                    <div class="col-lg-10 ">
-                        {% include 'components/navbar.html.twig' %}
-                    </div>
-                    {# Hamburger navbar #}
-                    <div class="col-lg-1 d-flex flex-row justify-content-between">
-                        {% include 'components/hamburger.html.twig' %}
-                    </div>
-                </div>
-                <div class="row flex-grow-1">
-                    <div class="col-12">
-                        {% block body %}{% endblock %}
-                    </div>
-                </div>
-                <div class="row">
-                    {# Footer #}
-                    <div class="col-12">
-                        {% include 'components/footer.html.twig' %}
-                    </div>
-                </div>
+        <div class="d-flex flex-column min-vh-100">
+            {#  Navbar #}
+            <div>
+                {% include 'components/new-navbar.html.twig' %}
+            </div>
+            <div class="container flex-grow-1">
+                {% block body %}{% endblock %}
+            </div>
+            {# Footer #}
+            <div>
+                {% include 'components/new-footer.html.twig' %}
             </div>
         </div>
     </body>
