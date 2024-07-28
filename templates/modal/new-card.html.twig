@@ -1,0 +1,53 @@
+<div id="card-view" class="col-lg-4 col-md-6 col-sm-12 d-flex flex-row justify-content-center mb-4">
+    <div class="mx-2 mb-2" style="height:auto; width:18rem">
+        <a href="{{ path('recipe', { 'id': recipe.id }) }}">
+            {% if recipe.imageName == null %}
+                <img src="{{ asset('img/default.jpg') }}" class="card-img-top" alt="...">
+            {% else %}
+                <img src="{{ asset('img/recipes/' ~ recipe.imageName) }}" class="card-img-top" alt="...">
+            {% endif %}
+        </a>
+        <p class="mt-2 text-green"><strong>Tag here</strong></p>
+        <div class="d-flex flex-row justify-content-between align-items-center">
+            <h3 class="mb-2">{{ recipe.name}}</h3>
+            <a href="{{ path('recipe', { 'id': recipe.id }) }}">
+                <img src="{{ asset('icons/arrow_north_east.svg') }}">
+            </a>
+        </div>
+        <p class="">{{ recipe.description|truncateString(40) }}...</p>
+        <div class="d-flex flex-row my-2">
+            <p><strong>5.0</strong></p>
+            {% for i in range(1,5) %}
+                <img src="{{ asset('icons/star.svg') }}" style="margin-right: -5px;">
+            {% endfor %}
+            <p class="ms-1">(1000) bedømmelser</p>
+        </div>
+        <div class="d-flex flex-column">
+            <p><strong>{{ recipe.userId.name }}</strong></p>
+            <p class="icon-center">
+                <img src="{{ asset('icons/clock.svg') }}">
+                {% if recipe.cookTimeHour == 1 %}
+                    1 time 
+                {% elseif recipe.cookTimeHour > 1 %}
+                    {{ recipe.cookTimeHour }} timer
+                {% endif %}
+
+                {% if recipe.cookTimeHour > 0 and recipe.cookTimeMin > 0 %}
+                    og
+                {% endif %}
+
+                {% if recipe.cookTimeMin == 1 %}
+                    1 minut
+                {% elseif recipe.cookTimeMin > 1 %}
+                    {{ recipe.cookTimeMin }} minutter
+                {% endif %}
+            </p>
+        </div>
+        {% if owner %}
+            <div class="d-flex flex-row justify-content-between my-3">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ recipe.id }}">Ændre</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ recipe.id }}">Slet</button>
+            </div>
+        {% endif %}
+    </div>
+</div>

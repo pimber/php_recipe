@@ -328,4 +328,10 @@ class HomeController extends AbstractController
 
         return $this->redirectToRoute('myrecipes');
     }
+
+    #[Route('/om-oldefars' , name:'aboutGreatGrandfather')]
+    public function aboutGreatGrandfather(): Response
+    {
+        return $this->render('pages/aboutGreatGrandfather.html.twig');
+    }
 }

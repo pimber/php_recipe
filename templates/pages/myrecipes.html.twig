@@ -22,7 +22,7 @@
     <div class="col-12">
         <div class="row">
             {% for recipe in recipes %}
-                {% include 'modal/card.html.twig' with {'recipe': recipe, 'owner': true } %}
+                {% include 'modal/new-card.html.twig' with {'recipe': recipe, 'owner': true } %}
             {% endfor %}
         </div>
     </div>
