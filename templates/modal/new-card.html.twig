@@ -7,7 +7,9 @@
                 <img src="{{ asset('img/recipes/' ~ recipe.imageName) }}" class="card-img-top" alt="...">
             {% endif %}
         </a>
-        <p class="mt-2 text-green"><strong>Tag here</strong></p>
+        {% if false %} {# Remove if false when logic has been made#}
+            <p class="mt-2 text-green"><strong>Tag here</strong></p>
+        {% endif %}
         <div class="d-flex flex-row justify-content-between align-items-center">
             <h3 class="mb-2">{{ recipe.name}}</h3>
             <a href="{{ path('recipe', { 'id': recipe.id }) }}">
@@ -15,13 +17,15 @@
             </a>
         </div>
         <p class="">{{ recipe.description|truncateString(40) }}...</p>
-        <div class="d-flex flex-row my-2">
-            <p><strong>5.0</strong></p>
-            {% for i in range(1,5) %}
-                <img src="{{ asset('icons/star.svg') }}" style="margin-right: -5px;">
-            {% endfor %}
-            <p class="ms-1">(1000) bedømmelser</p>
-        </div>
+        {% if false %} {# Remove if false when logic has been made#}
+            <div class="d-flex flex-row my-2">
+                <p><strong>5.0</strong></p>
+                {% for i in range(1,5) %}
+                    <img src="{{ asset('icons/star.svg') }}" style="margin-right: -5px;">
+                {% endfor %}
+                <p class="ms-1">(1000) bedømmelser</p>
+            </div>
+        {% endif %}
         <div class="d-flex flex-column">
             <p><strong>{{ recipe.userId.name }}</strong></p>
             <p class="icon-center">

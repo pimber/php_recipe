@@ -18,16 +18,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  @media (max-width: 991.98px) {
+@media (max-width: 991.98px) {
     .btn-container {
-      flex-direction: column;
+        flex-direction: column;
     }
+
     .btn-container .btn-center {
-      margin-bottom: 10px;
+        margin-bottom: 10px;
     }
-  }
+}
 
 /****************************************
     Navbar
@@ -194,14 +195,15 @@
     Card
 ****************************************/
 
-#card-view h3, p {
+#card-view h3,
+p {
     margin-bottom: 0;
 }
 
 .icon-center {
     display: flex;
     align-items: center;
-  }
+}
 
 .icon-center img {
     margin-right: 5px;
