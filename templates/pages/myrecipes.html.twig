@@ -4,7 +4,16 @@
 
 <div class="container">
     <div class="row">
-        <h3 class="my-5 d-flex justify-content-center text-white">Leder du efter en af dine egne opskrifter? Find den her!</h3>
+		<div class="col-lg-7 col-md-9 d-flex flex-column mt-5 mb-5">
+			<p class="text-green"><strong>Dine opskrifter</strong></p>
+			<h1 class="mt-2 mb-4">Glemt og tilføje noget til opskriften?</h1>
+			<p>
+            Tryk på knappen for at ændre og tilføje nye elementer til din opskrift!
+            Husk, at du altid kan uploade et billede senere, hvis du ikke har et til din opskrift lige nu.
+            </p>
+		</div>
+	</div>
+    <div class="row">
         <div class="col-lg-3 col-md-2 col-sm-1"></div>
         <div class="col-lg-6 col-md-8 col-sm-10 mb-4">
             <form id="searchForm" action="{{ path('myrecipes') }}" method="get" class="d-flex flex-column align-items-center">
