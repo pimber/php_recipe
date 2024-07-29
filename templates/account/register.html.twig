@@ -2,9 +2,18 @@
 
 {% block body %}
 
+<div class="container">
+	<div class="row">
+		<div class="col-lg-7 col-md-9 d-flex flex-column mt-5 mb-5">
+			<p class="text-green">
+				<strong>Registrere konto</strong>
+			</p>
+			<h1 class="mt-2 mb-4">Vil du dele dine lækre opskrifter med os?</h1>
+			<p>Opret en konto hos Oldefars Opskrifter for at oprette og dele dine egne opskrifter med fællesskabet.</p>
+		</div>
+	</div>
 	{{ form_start(form) }}
 	<div class="row">
-		<h3 class="my-5 d-flex justify-content-center text-white">Lav en konto hvis du vil tilføje opskrifter</h3>
 		<div class="col-lg-3 col-md-2 col-sm-1"></div>
 		<div class="col-lg-6 col-md-8 col-sm-10 mb-4">
 			<div class="d-flex align-items-center flex-column">
@@ -12,17 +21,17 @@
 					<div class="alert alert-danger">{{ error }}</div>
 				{% endif %}
 				<div class="mb-3 w-100">
-					{{ form_label(form.name, 'Navn', {'label_attr': {'class': 'form-label text-white'}}) }}
+					{{ form_label(form.name, 'Navn', {'label_attr': {'class': 'form-label'}}) }}
 					{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
 					{{ form_errors(form.name) }}
 				</div>
 				<div class="mb-3 w-100">
-					{{ form_label(form.email, 'Email adresse', {'label_attr': {'class': 'form-label text-white'}}) }}
+					{{ form_label(form.email, 'Email adresse', {'label_attr': {'class': 'form-label'}}) }}
 					{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
 					{{ form_errors(form.email) }}
 				</div>
 				<div class="mb-3 w-100">
-					{{ form_label(form.password, 'Adgangskode', {'label_attr': {'class': 'form-label text-white'}}) }}
+					{{ form_label(form.password, 'Adgangskode', {'label_attr': {'class': 'form-label'}}) }}
 					{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
 					{{ form_errors(form.password) }}
 				</div>
@@ -32,4 +41,5 @@
 		<div class="col-lg-3 col-md-2 col-sm-1"></div>
 	</div>
 	{{ form_end(form) }}
+</div>
 {% endblock %}
