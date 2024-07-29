@@ -5,7 +5,7 @@
 	<div id="homepage" class="container">
 		<div class="row mt-3 mb-4">
 			<div class="col-12 d-flex flex-column flex-lg-row align-items-center">
-				<div class="col-lg-5 d-flex flex-column">
+				<div class="col-lg-6 d-flex flex-column">
 					<h1>Min oldefar elskede at lege med maden</h1>
 					<p class="mb-3">...og jeg vil rigtig gerne dele nogle af mine favoritopskrifter med dig! Opret en gratis konto og del nogle af dine yndlingsopskrifter med os andre.</p>
 					<div class="d-flex flex-column flex-md-column flex-lg-column flex-xl-row btn-container mb-2">
@@ -15,8 +15,9 @@
 						<a href="{{ path('register') }}" class="btn btn-primary btn-lg btn-center mb-2 me-2 btn-width">Hop med på legen</a>
 					</div>
 				</div>
-				<!-- Add responsive utility classes to the image -->
-				<img src="{{ asset('img/homepage.png') }}" class="d-none d-lg-block" alt="Homepage image">
+				<div class="col-lg-6 d-flex justify-content-end">
+					<img src="{{ asset('img/homepage.png') }}" class="d-none d-lg-block homepage-img" alt="Homepage image">
+				</div>
 			</div>
 		</div>
 		<div class="row mt-4 mb-4">
