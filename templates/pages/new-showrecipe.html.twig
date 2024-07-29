@@ -101,7 +101,7 @@
             </div>
             <div class="row my-4">
                 {% for recipe in recipes %}
-                    {% include 'modal/new-card.html.twig' with {'recipe': recipe } %}
+                    {% include 'modal/new-card.html.twig' with {'recipes': recipes } %}
                 {% endfor %}
 		    </div>
         </div>

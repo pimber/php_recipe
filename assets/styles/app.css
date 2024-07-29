@@ -1,5 +1,9 @@
 @import 'bootstrap';
 
+html {
+    overflow-y: scroll;
+}
+
 :root {
     --green: #087443;
     --black: #000000;
@@ -22,6 +26,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.homepage-img {
+    min-height: fit-content;
+    max-height: 550px;
+    height: 100%;
+    width: 100%;
+    max-width: 660px; /* Or any other maximum width */
+    object-fit:cover; /* Optional, depending on your use case */
+    
 }
 
 @media (max-width: 992px) {

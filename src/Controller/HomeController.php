@@ -113,13 +113,7 @@ class HomeController extends AbstractController
     #[Route('/opskrifter/{id}', name: 'recipe')]
     public function recipe($id, EntityManagerInterface $entityManager): Response
     {
-        // Get the recipe from the database
-        $recipe = $entityManager->getRepository(Recipe::class)->find($id);
-
-        if (!$recipe) {
-            throw $this->createNotFoundException('The recipe does not exist');
-        }
-
+    
         $connection = $entityManager->getConnection();
 
         // Build the raw SQL query for PostgreSQL
@@ -135,6 +129,13 @@ class HomeController extends AbstractController
         foreach ($rows as $row) {
             $recipe = $entityManager->getRepository(Recipe::class)->find($row['id']);
             $recipes[] = $recipe;
+        }
+
+        // Get the recipe from the database
+        $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+
+        if (!$recipe) {
+            throw $this->createNotFoundException('The recipe does not exist');
         }
 
 
