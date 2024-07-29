@@ -9,6 +9,10 @@
     color: var(--green);
 }
 
+.bg-green {
+    background-color: var(--green);
+}
+
 /****************************************
     Home page
 ****************************************/
@@ -20,7 +24,22 @@
     justify-content: center;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
+    .btn-width {
+        width: fit-content;
+        min-width: 210px;
+    }    
+}
+
+@media (max-width: 1200px) {
+    .btn-width {
+        width: fit-content;
+        min-width: 210px;
+    }  
+}
+
+
+@media (min-width: 992px) {
     .btn-container {
         flex-direction: column;
     }
@@ -207,4 +226,43 @@ p {
 
 .icon-center img {
     margin-right: 5px;
+}
+
+/* Grow */
+.grow {
+	display: inline-block;
+	transition-duration: 0.3s;
+	transition-property: transform;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+}
+
+
+/****************************************
+    Show recipe
+****************************************/
+
+.show-recipe-img {
+    min-height: fit-content;
+    max-height: 550px;
+    height: 100%;
+    width: 100%;
+    max-width: 660px; /* Or any other maximum width */
+    object-fit:cover; /* Optional, depending on your use case */
+    
+}
+
+.show-recipe-content {
+    padding: 50px;
+    min-height: fit-content;
+}
+
+/* When under 768px add margin  */
+@media (max-width: 768px) {
+    .show-recipe-title {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
 }

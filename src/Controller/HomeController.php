@@ -120,13 +120,32 @@ class HomeController extends AbstractController
             throw $this->createNotFoundException('The recipe does not exist');
         }
 
+        $connection = $entityManager->getConnection();
+
+        // Build the raw SQL query for PostgreSQL
+        $sql = "SELECT r.id FROM recipe as r ORDER BY RANDOM() LIMIT 3";
+        $stmt = $connection->prepare($sql);
+        $result = $stmt->executeQuery();
+
+        // Fetch result as an associative array
+        $rows = $result->fetchAllAssociative();
+
+        // Map results to Recipe entities
+        $recipes = [];
+        foreach ($rows as $row) {
+            $recipe = $entityManager->getRepository(Recipe::class)->find($row['id']);
+            $recipes[] = $recipe;
+        }
+
+
         // Set owner to false
         $owner = false;
 
         // Render the recipe page
-        return $this->render('pages/showrecipe.html.twig', [
+        return $this->render('pages/new-showrecipe.html.twig', [
             'recipe' => $recipe,
-            'owner' => $owner
+            'owner' => $owner,
+            'recipes' => $recipes
         ]);
     }
 
@@ -224,7 +243,7 @@ class HomeController extends AbstractController
         $form = $this->createForm(CreateNewRecipeType::class, $recipe);
         $form->handleRequest($request);
         if ($this->handleFormRequest($form, $recipe, $user, $entityManager)) {
-            return $this->redirectToRoute('mine-opskrifter');
+            return $this->redirectToRoute('myrecipes');
         }
         
         // Render the page
