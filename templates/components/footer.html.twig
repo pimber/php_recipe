@@ -1,8 +1,11 @@
 <footer id="footer-mobile" class="py-3 my-4" style="padding-left:15px;">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="/" class="nav-link px-2 text-white-50">Hjem</a></li>
-        <li class="nav-item"><a href="/recipes" class="nav-link px-2 text-white-50">Opskrifter</a></li>
-        <li class="nav-item"><a href="/contact" class="nav-link px-2 text-white-50">Kontakt</a></li>
+        <li class="nav-item"><a href="{{ path('home') }}" class="nav-link px-2 text-white-50">Hjem</a></li>
+        <li class="nav-item"><a href="{{ path('recipes') }}" class="nav-link px-2 text-white-50">Opskrifter</a></li>
+        <li class="nav-item"><a href="{{ path('contact') }}" class="nav-link px-2 text-white-50">Kontakt</a></li>
+        {% if app.user %}
+            <li class="nav-item"><a href="{{ path('myrecipes') }}" class="nav-link px-2 text-white-50">Mine Opskrifter</a></li>
+        {% endif %}
     </ul>
     <p class="text-center text-white-50">© 2024 Made by
         <a class="text-white-50" href="https://www.linkedin.com/in/christoffer-trebbien-j%C3%B8nsson/" style="text-decoration: none;">
