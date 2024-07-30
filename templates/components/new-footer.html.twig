@@ -9,6 +9,9 @@
                     <a href="{{ path('home') }}">Hjem</a>
                     <a href="{{ path('recipes') }}" >Opskrifter</a>
                     <a href="{{ path('contact') }}">Kontakt</a>
+                    {% if app.user %}
+                        <a href="{{ path('myrecipes') }}">Mine Opskrifter</a>
+                    {% endif %}
                 </div>
                 <div>
                     <a href="https://www.linkedin.com/in/christoffer-trebbien-j%C3%B8nsson/">
