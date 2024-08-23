@@ -3,7 +3,9 @@
         <div class="col-12 mt-3">
             <div class="d-flex flex-row justify-content-between">
                 <div>
-                    <img src="{{ asset('icons/icon-hvid-grøn.svg') }}" alt="Oldefarsopskrifter" style="height: auto; width: 200px;">
+                    <a href="{{ path('home') }}">
+                        <img src="{{ asset('icons/icon-hvid-grøn.svg') }}" alt="Oldefarsopskrifter" style="height: auto; width: 200px;">
+                    </a>
                 </div>
                 <div class="d-flex flex-row align-items-center">
                     <a href="{{ path('home') }}" class="hover-3 p-2 me-3 {{ app.request.attributes.get('_route') == 'home' ? 'keep-hover-3' : '' }}">Hjem</a>
