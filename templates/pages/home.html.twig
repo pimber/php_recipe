@@ -12,7 +12,11 @@
 						<a href="{{ path('aboutGreatGrandfather') }}" class="btn btn-primary btn-lg btn-center mb-2 me-2 btn-width">
 							<img src="{{ asset('icons/play-btn.svg') }}" class="me-1">Mød min oldefar
 						</a>
-						<a href="{{ path('register') }}" class="btn btn-primary btn-lg btn-center mb-2 me-2 btn-width">Hop med på legen</a>
+						{% if app.user %}
+							<a href="{{ path('myrecipes') }}" class="btn btn-primary btn-lg btn-center mb-2 me-2 btn-width">Hop med på legen</a>
+						{% else %}
+							<a href="{{ path('register') }}" class="btn btn-primary btn-lg btn-center mb-2 me-2 btn-width">Hop med på legen</a>
+						{% endif %}
 					</div>
 				</div>
 				<div class="col-lg-6 d-flex justify-content-end">
