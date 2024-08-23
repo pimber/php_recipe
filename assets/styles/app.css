@@ -17,6 +17,10 @@ html {
     background-color: var(--green);
 }
 
+.icon-move-up {
+    margin-top: -3px;
+}
+
 /****************************************
     Home page
 ****************************************/

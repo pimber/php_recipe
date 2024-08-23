@@ -13,9 +13,9 @@
                     <a href="{{ path('contact') }}" class="hover-3 p-2 me-3 {{ app.request.attributes.get('_route') == 'contact' ? 'keep-hover-3' : '' }}">Kontakt</a>
                     {% if app.user %}
                         <a href="{{ path('myrecipes') }}" class="hover-3 p-2 me-3 {{ app.request.attributes.get('_route') == 'myrecipes' ? 'keep-hover-3' : '' }}">Mine opskrifter</a>
-                        <a href="{{ path('edit') }}" class="btn btn-primary"><img src="{{ asset('icons/person_settings.svg') }}" class="pe-2">Hej! Se konto her</a>
+                        <a href="{{ path('edit') }}" class="btn btn-oldefar-green"><img src="{{ asset('icons/person_settings.svg') }}" class="pe-2 icon-move-up">Hej! Se konto her</a>
                     {% else %}
-                        <a href="{{ path('login') }}" class="btn btn-primary"><img src="{{ asset('icons/person.svg') }}" class="pe-2">Hej! Log ind her</a>
+                        <a href="{{ path('login') }}" class="btn btn-oldefar-green"><img src="{{ asset('icons/person.svg') }}" class="pe-2 icon-move-up">Hej! Log ind her</a>
                     {% endif %}
                 </div>
             </div>
@@ -31,9 +31,9 @@
                 </div>
                 <div>
                     {% if app.user %}
-                        <a href="{{ path('edit') }}" class="btn btn-primary"><img src="{{ asset('icons/person_settings.svg') }}" class="pe-2">Hej! Se konto her</a>
+                        <a href="{{ path('edit') }}" class="btn btn-oldefar-green"><img src="{{ asset('icons/person_settings.svg') }}" class="pe-2 icon-move-up">Hej! Se konto her</a>
                     {% else %}
-                        <a href="{{ path('login') }}" class="btn btn-primary"><img src="{{ asset('icons/person.svg') }}" class="pe-2">Hej! Log ind her</a>
+                        <a href="{{ path('login') }}" class="btn btn-oldefar-green"><img src="{{ asset('icons/person.svg') }}" class="pe-2 icon-move-up">Hej! Log ind her</a>
                     {% endif %}
                 </div>
             </div>
