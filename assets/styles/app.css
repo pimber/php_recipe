@@ -280,3 +280,16 @@ p {
         margin-bottom: 20px;
     }
 }
+
+/****************************************
+    About oldefar
+****************************************/
+
+.oldefar-img {
+    min-height: fit-content;
+    max-height: 400px;
+    height: 100%;
+    width: 100%;
+    max-width: 500px; /* Or any other maximum width */
+    object-fit:cover; /* Optional, depending on your use case */
+}
