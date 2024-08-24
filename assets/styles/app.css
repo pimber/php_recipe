@@ -298,7 +298,7 @@ p {
 
 .oldefar-img {
     min-height: fit-content;
-    max-height: 400px;
+    max-height: 450px;
     height: 100%;
     width: 100%;
     max-width: 500px; /* Or any other maximum width */
