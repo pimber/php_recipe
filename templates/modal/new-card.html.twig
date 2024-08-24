@@ -16,7 +16,7 @@
                 <img src="{{ asset('icons/arrow_north_east.svg') }}">
             </a>
         </div>
-        <p class="">{{ recipe.description|truncateString(40) }}...</p>
+        <p class="">{{ recipe.description|truncateString(30) }}...</p>
         {% if false %} {# Remove if false when logic has been made#}
             <div class="d-flex flex-row my-2">
                 <p><strong>5.0</strong></p>
@@ -27,8 +27,8 @@
             </div>
         {% endif %}
         <div class="d-flex flex-column">
-            <p><strong>{{ recipe.userId.name }}</strong></p>
-            <p class="icon-center">
+            <p class="m-0 mb-1"><strong>{{ recipe.userId.name }}</strong></p>
+            <p class="m-0 icon-center">
                 <img src="{{ asset('icons/clock.svg') }}">
                 {% if recipe.cookTimeHour == 1 %}
                     1 time 
