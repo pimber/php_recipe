@@ -2,9 +2,9 @@
     <div class="mx-2 mb-2" style="height:auto; width:18rem">
         <a href="{{ path('recipe', { 'id': recipe.id }) }}">
             {% if recipe.imageName == null %}
-                <img src="{{ asset('img/default.jpg') }}" class="card-img-top" alt="...">
+                <img src="{{ asset('img/default.jpg') }}" class="card-img-top rounded-4" alt="...">
             {% else %}
-                <img src="{{ asset('img/recipes/' ~ recipe.imageName) }}" class="card-img-top" alt="...">
+                <img src="{{ asset('img/recipes/' ~ recipe.imageName) }}" class="card-img-top rounded-4" alt="...">
             {% endif %}
         </a>
         {% if false %} {# Remove if false when logic has been made#}
