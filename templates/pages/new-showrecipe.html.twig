@@ -27,6 +27,7 @@
 							minutter
 						{% endif %}
 					</p>
+					{% if false %}
 					<div class="d-flex flex-row my-2 justify-content-start align-items-center">
 						<p class="mb-0">
 							<strong>5.0</strong>
@@ -36,6 +37,7 @@
 						{% endfor %}
 						<p class="ms-1 mb-0">(1000) bedømmelser</p>
 					</div>
+					{% endif %} 
 					<p class="fs-6">
 						<strong>{{ recipe.userId.name }}</strong>
 					</p>
@@ -55,19 +57,21 @@
 					<h2 class="text-white mb-4">Ingredienser</h2>
 					<ul class="list-group">
 						{% for ingredient in recipe.ingredients %}
-							<li class="list-group-item d-flex flex-row justify-content-between">
-								<div class="d-flex flex-row">
-									<div class="pe-1">
-										{{ ingredient.Amount }}
+							<li class="list-group-item">
+								<div class="content-container d-flex flex-row justify-content-between">
+									<div class="d-flex flex-row">
+										<div class="pe-1">
+											{{ ingredient.Amount }}
+										</div>
+										<div class="pe-3">
+											{{ ingredient.ingredientAmountTypeId.type }}
+										</div>
+										<div>{{ ingredient.ingredientId.name }}</div>
 									</div>
-									<div class="pe-3">
-										{{ ingredient.ingredientAmountTypeId.type }}</div>
-									<div class="">{{ ingredient.ingredientId.name }}</div>
+									<div>
+										<input class="form-check-input align-self-center" type="checkbox" value="" onclick="toggleLineThrough(this)">
+									</div>
 								</div>
-								<div>
-									<input class="form-check-input align-self-center" type="checkbox" value="">
-								</div>
-
 							</li>
 						{% endfor %}
 					</ul>
@@ -81,7 +85,7 @@
 					</div>
 					<div class="d-flex justify-content-between align-items-center">
 						<p class="fs-5 mb-0 me-3">Del opskriften</p>
-						<button class="btn btn-outline-secondary d-flex align-items-center">
+						<button class="btn btn-outline-secondary d-flex align-items-center" onclick="copyToClipboard()">
 							<img src="{{ asset('icons/content_copy.svg') }}" class="icon-move-down me-2" alt="">
 							Kopier link
 						</button>
@@ -108,4 +112,37 @@
 		    </div>
         </div>
     </div>
+<script>
+	function copyToClipboard() {
+		// Get the current URL
+		const currentURL = window.location.href;
+
+		// Copy the URL to the clipboard using the Clipboard API
+		navigator.clipboard.writeText(currentURL).then(() => {
+			// Alert success message
+			alert('Opskriften er kopieret til udklipsholderen');
+		}).catch(err => {
+			// Handle any errors
+			alert('Opskriften kunne ikke kopiers til udkilpsholderen: ', err);
+		});
+	}
+
+	function toggleLineThrough(checkbox) {
+		// Get the closest <li> element that contains all the content
+		let listItem = checkbox.closest('li');
+
+		// Get the div that contains all the content
+		let contentDiv = listItem.querySelector('.content-container');
+
+		// Toggle the line-through style based on checkbox state
+		if (checkbox.checked) {
+			contentDiv.style.textDecoration = 'line-through';
+			contentDiv.style.color = 'gray'; // Optional: Gray out the text
+		} else {
+			contentDiv.style.textDecoration = 'none'; // Remove line-through
+			contentDiv.style.color = ''; // Reset to default color
+		}
+	}
+
+</script>
 {% endblock %}

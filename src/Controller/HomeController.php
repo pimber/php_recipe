@@ -82,10 +82,10 @@ class HomeController extends AbstractController
         // Apply search filter if search term exists
         if ($searchTerm) {
             $queryBuilder
-                ->where('r.name LIKE :searchTerm')
-                ->orWhere('i.name LIKE :searchTerm')
-                ->orWhere('u.Name LIKE :searchTerm')
-                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+                ->where('LOWER(r.name) LIKE :searchTerm')
+                ->orWhere('LOWER(i.name) LIKE :searchTerm')
+                ->orWhere('LOWER(u.Name) LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . strtolower($searchTerm) . '%');
         }
 
         // Get all recipes from DB
@@ -201,9 +201,9 @@ class HomeController extends AbstractController
         
         if ($searchTerm) {
             $queryBuilder
-                ->andwhere('r.name LIKE :searchTerm')
-                ->orWhere('i.name LIKE :searchTerm')
-                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+                ->andwhere('LOWER(r.name) LIKE :searchTerm')
+                ->orWhere('LOWER(i.name) LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . strtolower($searchTerm) . '%');
         }
 
         // Get the query from the query builder

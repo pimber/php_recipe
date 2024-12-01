@@ -297,10 +297,8 @@ p {
 ****************************************/
 
 .oldefar-img {
-    min-height: fit-content;
     max-height: 450px;
-    height: 100%;
     width: 100%;
-    max-width: 500px; /* Or any other maximum width */
+    max-width: 636px;
     object-fit:cover; /* Optional, depending on your use case */
 }
