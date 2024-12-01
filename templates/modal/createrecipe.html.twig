@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Set index on the new ingredients
 	newIngredient = newIngredient.replace(/__name__/g, index)
 	// Add classes to divs
+	newIngredient = newIngredient.replace('Mængde</label><input type="text"', 'Mængde</label><input type="number" min="0" step="0.01"');
 	newIngredient = newIngredient.replace('create_new_recipe_ingredients_' + index, 'create_new_recipe_ingredients_' + index + '" class="d-flex flex-row justify-content-between remove" ');
 	newIngredient = newIngredient.replaceAll('<div>', '<div class="w-100 pe-2">');
 	// Add remove button to ingredient
