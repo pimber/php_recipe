@@ -22,6 +22,10 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+use App\Form\RegistrationFormType;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Form\LoginFormType;
 
 class SecurityController extends AbstractController
 {
