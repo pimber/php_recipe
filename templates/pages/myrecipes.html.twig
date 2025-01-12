@@ -20,19 +20,19 @@
                 <input type="text" id="searchInput" class="form-control mb-2" name="search" placeholder="Search for recipe" value="{{ searchTerm }}">
                 <div class="d-flex flex-wrap justify-content-between w-100">
                     <button type="submit" class="btn btn-oldefar-green mb-2 me-2">Søg</button>
-                    <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Opret ny opskrift</button>
+                    <a href="{{ path('createNewRecipe') }}"><button type="button" class="btn btn-success mb-2">Opret ny opskrift</button></a>
                 </div>
             </form>
         </div>
         <div class="col-lg-3 col-md-2 col-sm-1 d-flex justify-content-end align-items-start divBtn">
-            <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Opret ny opskrift</button>
+            <a href="{{ path('createNewRecipe') }}"><button type="button" class="btn btn-success mb-2">Opret ny opskrift</button></a>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="row">
                 {% for recipe in recipes %}
-                    {% include 'modal/new-card.html.twig' with {'recipe': recipe, 'owner': true } %}
+                    {% include 'components/card.html.twig' with {'recipe': recipe, 'owner': true } %}
                 {% endfor %}
             </div>
         </div>
@@ -46,22 +46,11 @@
 
 
 {# Create recipe modal view here #}
-{% include 'modal/createrecipe.html.twig' %}
-
-{# Recipe Modal View here #}
-{% for recipe in recipes %}
-    {% include 'modal/showrecipe.html.twig' with {'recipe': recipe } %}
-{% endfor %}
+{# {% include 'modal/createrecipe.html.twig' %} #}
 
 {# Delete recipe modal view here #}
 {% for recipe in recipes %}
     {% include 'modal/deleterecipe.html.twig' with {'recipe': recipe } %}
-{% endfor %}
-
-{# Edit recipe modal view here #}
-
-{% for col in collection %}
-    {% include 'modal/editrecipe.html.twig' with {'id': col.id, 'form': col.formView } %}
 {% endfor %}
 
 <script>

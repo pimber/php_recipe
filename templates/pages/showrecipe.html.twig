@@ -2,34 +2,147 @@
 
 {% block body %}
 
-<div class="container">
-    <div class="row">
-        <div class="d-flex flex-row justify-content-between">
-            <p class="fs-6">Lavet af: {{ recipe.userId.name }}</p>
-            <p class="fs-6">Oprettet den: {{ recipe.createdOn|date('Y-m-d') }}</p>
-        </div>
-        <div class="col-lg-6 col-sm-12 mb-2 ">
-            <ul class="list-group">
-                {% for ingredient in recipe.ingredients %}
-                    <li class="list-group-item d-flex flex-row justify-content-between">
-                        <div class="col-8">{{ ingredient.ingredientId.name }}</div>
-                        <div class="col-2"> {{ ingredient.Amount }} </div>
-                        <div class="col-2 d-flex justify-content-end"> {{ ingredient.ingredientAmountTypeId.type }}</div>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col-lg-6 col-sm-12 mb-2">
-            <div class="d-flex flex-column h-100 border rounded pt-2 px-2">
-                <h5>Sådan gør du:</h5>
-                <p class="fs-6 textarea-pre-wrap">{{ recipe.description }}</p>
-                    <div class="d-flex flex-row justify-content-between mt-auto" style="margin-bottom: -15px;">
-                    <p>Forberedelsestid: {{ recipe.prepTimeHour }} h {{ recipe.prepTimeMin }} min </p>
-                    <p>Tilberedningstid: {{ recipe.cookTimeHour }} h {{ recipe.cookTimeMin }} min </p>
-                </div>
+	<div id="show-recipe" class="container">
+		<div class="row mt-4">
+			<div class="col-lg-6 col-md-6 order-2 order-md-1 d-flex flex-column justify-content-center justify-lg-content-start align-items-center text-md-start g-0">
+				<div class="show-recipe-title">
+					<h1>{{ recipe.name }}</h1>
+					<p class="icon-center">
+						<img src="{{ asset('icons/clock.svg') }}" alt="Clock Icon">
+						{% if recipe.cookTimeHour == 1 %}
+							1 time
+						{% elseif recipe.cookTimeHour > 1 %}
+							{{ recipe.cookTimeHour }}
+							timer
+						{% endif %}
+
+						{% if recipe.cookTimeHour > 0 and recipe.cookTimeMin > 0 %}
+							og
+						{% endif %}
+
+						{% if recipe.cookTimeMin == 1 %}
+							1 minut
+						{% elseif recipe.cookTimeMin > 1 %}
+							{{ recipe.cookTimeMin }}
+							minutter
+						{% endif %}
+					</p>
+					{% if false %}
+					<div class="d-flex flex-row my-2 justify-content-start align-items-center">
+						<p class="mb-0">
+							<strong>5.0</strong>
+						</p>
+						{% for i in range(1, 5) %}
+							<img src="{{ asset('icons/star.svg') }}" style="margin-right: -5px;" alt="Star Icon">
+						{% endfor %}
+						<p class="ms-1 mb-0">(1000) bedømmelser</p>
+					</div>
+					{% endif %} 
+					<p class="fs-6">
+						<strong>{{ recipe.userId.name }}</strong>
+					</p>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 order-1 order-md-2 d-flex justify-content-center g-0">
+				{% if recipe.imageName == null %}
+					<img src="{{ asset('img/default.jpg') }}" class="show-recipe-img" alt="Default Image">
+				{% else %}
+					<img src="{{ asset('img/recipes/' ~ recipe.imageName) }}" class="show-recipe-img" alt="Recipe Image">
+				{% endif %}
+			</div>
+		</div>
+		<div class="row mb-4">
+			<div class="col-lg-6 col-md-6 bg-green show-recipe-content g-0">
+				<div class="p-4">
+					<h2 class="text-white mb-4">Ingredienser</h2>
+					<ul class="list-group">
+						{% for ingredient in recipe.ingredients %}
+							<li class="list-group-item">
+								<div class="content-container d-flex flex-row justify-content-between">
+									<div class="d-flex flex-row">
+										<div class="pe-1">
+											{{ ingredient.Amount }}
+										</div>
+										<div class="pe-3">
+											{{ ingredient.ingredientAmountTypeId.type }}
+										</div>
+										<div>{{ ingredient.ingredientId.name }}</div>
+									</div>
+									<div>
+										<input class="form-check-input align-self-center" type="checkbox" value="" onclick="toggleLineThrough(this)">
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 show-recipe-content g-0">
+				<div class="p-4">
+					<div class="mb-4">
+						<h1>Sådan gør du</h1>
+						<p class="fs-6 textarea-pre-wrap">{{ recipe.description }}</p>
+					</div>
+					<div class="d-flex justify-content-between align-items-center">
+						<p class="fs-5 mb-0 me-3">Del opskriften</p>
+						<button class="btn btn-outline-secondary d-flex align-items-center" onclick="copyToClipboard()">
+							<img src="{{ asset('icons/content_copy.svg') }}" class="icon-move-down me-2" alt="">
+							Kopier link
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-lg-9 col-sm-7">
+                <p class="text-green">
+                    <strong>Flere opskrifter i samme stil</strong>
+                </p>
+                <p class="fs-1">Stadig sulten?</p>
+                <p class="fs-4">Hvis du kunne lide den her opskrift, tror jeg også du ville kunne lide de her tre. Ellers er du velkommen til at tjekke hele vores udvalg ud på opskriftsiden. (Lige nu bare 3 random)</p>
             </div>
+            <div class="col-lg-3 col-sm-5 d-flex justify-content-end align-self-start mt-3 mt-sm-0 mb-3">
+                <a href="{{ path('recipes') }}" class="btn btn-oldefar-green btn-center">Se alle opskrifter
+                    <img src="{{ asset('icons/arrow_right.svg') }}"></a>
+            </div>
+            <div class="row my-4">
+                {% for recipe in recipes %}
+                    {% include 'components/card.html.twig' with {'recipes': recipes } %}
+                {% endfor %}
+		    </div>
         </div>
     </div>
-</div>
+<script>
+	function copyToClipboard() {
+		// Get the current URL
+		const currentURL = window.location.href;
 
+		// Copy the URL to the clipboard using the Clipboard API
+		navigator.clipboard.writeText(currentURL).then(() => {
+			// Alert success message
+			alert('Opskriften er kopieret til udklipsholderen');
+		}).catch(err => {
+			// Handle any errors
+			alert('Opskriften kunne ikke kopiers til udkilpsholderen: ', err);
+		});
+	}
+
+	function toggleLineThrough(checkbox) {
+		// Get the closest <li> element that contains all the content
+		let listItem = checkbox.closest('li');
+
+		// Get the div that contains all the content
+		let contentDiv = listItem.querySelector('.content-container');
+
+		// Toggle the line-through style based on checkbox state
+		if (checkbox.checked) {
+			contentDiv.style.textDecoration = 'line-through';
+			contentDiv.style.color = 'gray'; // Optional: Gray out the text
+		} else {
+			contentDiv.style.textDecoration = 'none'; // Remove line-through
+			contentDiv.style.color = ''; // Reset to default color
+		}
+	}
+
+</script>
 {% endblock %}

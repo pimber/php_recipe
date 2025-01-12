@@ -2,7 +2,25 @@
 
 namespace App\Controller;
 
-require "import.php";
+use App\Entity\Ingredient;
+use App\Entity\User;
+use App\Entity\IngredientAmount;
+use App\Entity\IngredientAmountType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use App\Entity\Recipe;
+use App\Form\CreateNewRecipeType;
+use App\Form\ContactType;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class RecipeController extends AbstractController
 {
@@ -82,7 +100,7 @@ class RecipeController extends AbstractController
         $owner = false;
 
         // Render the recipe page
-        return $this->render('pages/new-showrecipe.html.twig', [
+        return $this->render('pages/showrecipe.html.twig', [
             'recipe' => $recipe,
             'owner' => $owner,
             'recipes' => $recipes
@@ -244,5 +262,53 @@ class RecipeController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('myrecipes');
+    }
+
+
+    #[Route('/opret-ny-opskrift' , name:'createNewRecipe')]
+    public function createNewRecipe(Request $request, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory) : Response
+    {
+        /** @var User|null $user */
+        $user = $this->getUser();
+
+        // Create Form handling
+        $recipe = new Recipe();
+        $form = $this->createForm(CreateNewRecipeType::class, $recipe);
+        $form->handleRequest($request);
+        if ($this->handleFormRequest($form, $recipe, $user, $entityManager)) {
+            return $this->redirectToRoute('myrecipes');
+        }
+
+        return $this->render('pages/createNewRecipe.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    #[Route('/ændre-opskrift/{id}' , name:'editRecipe')]
+    public function editRecipe($id, Request $request, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory) : Response
+    {
+        /** @var User|null $user */
+        $user = $this->getUser();
+
+        // Get the recipe from the database
+        $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+
+        if (!$recipe) {
+            throw $this->createNotFoundException('The recipe does not exist');
+        }
+
+        // Create Form handling
+        $recipe = new Recipe();
+        $form = $this->createForm(CreateNewRecipeType::class, $recipe);
+        $form->handleRequest($request);
+        if ($this->handleFormRequest($form, $recipe, $user, $entityManager)) {
+            return $this->redirectToRoute('myrecipes');
+        }
+
+        return $this->render('pages/editRecipe.html.twig', [
+            'form' => $form->createView(),
+            'recipe' => $recipe
+        ]);
     }
 }

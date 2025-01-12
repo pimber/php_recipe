@@ -1,26 +1,71 @@
-<footer id="footer-mobile" class="py-3 my-4" style="padding-left:15px;">
+<div id="footer" class="footer-bg w-100">
+    <div class="container">
+        <div class="row">
+            <div class="d-flex flex-row justify-content-between align-items-center">
+                <div class="">
+                    <a href="{{ path('home') }}">
+                        <img src="{{ asset('icons/icon-grøn-hvid.svg') }}" alt="Oldefarsopskrifter" style="height: auto; width: 200px;">
+                    </a>
+                </div>
+                <div class="d-flex flex-row" style="margin-left: 70px;">
+                    <a href="{{ path('home') }}">Hjem</a>
+                    <a href="{{ path('recipes') }}" >Opskrifter</a>
+                    <a href="{{ path('contact') }}">Kontakt</a>
+                    {% if app.user %}
+                        <a href="{{ path('myrecipes') }}">Mine Opskrifter</a>
+                    {% endif %}
+                </div>
+                <div>
+                    <a href="https://www.linkedin.com/in/christoffer-trebbien-j%C3%B8nsson/">
+                        Christoffer Trebbien Jønsson
+                        <img src="/icons/linkedin.svg" alt="LinkedIn" style="width: 20px; height: 20px; margin-bottom: 3px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer-mobile" class="footer-bg w-100">
+    <div class="container">
+        <div class="row">
+            <div class="d-flex flex-column justify-content-between align-items-center">
+                <div class="d-flex flex-row mb-4">
+                    <a href="{{ path('home') }}">Hjem</a>
+                    <a href="{{ path('recipes') }}" >Opskrifter</a>
+                    <a href="{{ path('contact') }}">Kontakt</a>
+                </div>
+                <div>
+                    <a href="https://www.linkedin.com/in/christoffer-trebbien-j%C3%B8nsson/">
+                        @Christoffer Trebbien Jønsson
+                        <img src="/icons/linkedin.svg" alt="LinkedIn" style="width: 20px; height: 20px; margin-bottom: 3px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{# <div id="footer-mobile" class>
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="{{ path('home') }}" class="nav-link px-2 text-white-50">Hjem</a></li>
-        <li class="nav-item"><a href="{{ path('recipes') }}" class="nav-link px-2 text-white-50">Opskrifter</a></li>
-        <li class="nav-item"><a href="{{ path('contact') }}" class="nav-link px-2 text-white-50">Kontakt</a></li>
-        {% if app.user %}
-            <li class="nav-item"><a href="{{ path('myrecipes') }}" class="nav-link px-2 text-white-50">Mine Opskrifter</a></li>
-        {% endif %}
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-white-50">Hjem</a></li>
+        <li class="nav-item"><a href="/recipes" class="nav-link px-2 text-white-50">Opskrifter</a></li>
+        <li class="nav-item"><a href="/contact" class="nav-link px-2 text-white-50">Kontakt</a></li>
     </ul>
-    <p class="text-center text-white-50">© 2024 Made by
+    <p class="text-white-50">© 2024 Made by
         <a class="text-white-50" href="https://www.linkedin.com/in/christoffer-trebbien-j%C3%B8nsson/" style="text-decoration: none;">
             Christoffer Trebbien Jønsson
             <img src="/icons/linkedin.svg" alt="LinkedIn" style="width: 20px; height: 20px; margin-bottom: 3px;">
         </a>
     </p>
-    <p class="text-center"> 
+    <p class=""> 
         <a class="text-white-50" href="https://www.freepik.com/free-photo/top-view-delicious-cinnamon-rolls-with-copy-space_9876600.htm#fromView=search&page=1&position=41&uuid=28577830-f47c-43ca-ac75-9dd85777fee3">
             Background image by Freepik
         </a>
     </p>
-    <p class="text-center"> 
+    <p class=""> 
         <a class="text-white-50" href="https://www.freepik.com/free-vector/recipes-phone-design_1001393.htm#fromView=search&page=1&position=1&uuid=6af41195-60ae-43af-9dcc-7fa3689c188c">
             Default recipe image by Freepik
         </a>
     </p>
-</footer>
+</div> #}

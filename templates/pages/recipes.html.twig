@@ -24,7 +24,7 @@
 		<div class="col-12">
 			<div class="row">
 				{% for recipe in recipes %}
-					{% include 'modal/new-card.html.twig' with {'recipe': recipe } %}
+					{% include 'components/card.html.twig' with {'recipe': recipe } %}
 				{% endfor %}
 			</div>
 		</div>
@@ -35,11 +35,6 @@
 		</div>
 	</div>
 </div>
-
-	{# Recipe Modal View here #}
-	{% for recipe in recipes %}
-		{% include 'modal/showrecipe.html.twig' with {'recipe': recipe } %}
-	{% endfor %}
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function () { // Submit form on Enter press in input field
