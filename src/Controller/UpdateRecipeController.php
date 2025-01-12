@@ -21,6 +21,8 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Form\RegistrationFormType;
 
 class UpdateRecipeController extends AbstractController
 {
@@ -75,7 +77,7 @@ class UpdateRecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/slet/{id}', name:'delete')]
+    #[Route('/slet-opskrift/{id}', name:'delete')]
     public function delete(EntityManagerInterface $entityManager, $id): Response
     {
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);

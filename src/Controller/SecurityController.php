@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
 {

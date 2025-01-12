@@ -22,6 +22,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+
 class HomeController extends AbstractController
 {
     #[Route('/', name:'home')]
