@@ -288,13 +288,26 @@ class RecipeController extends AbstractController
 
         // Get the recipe from the database
         $recipe = $entityManager->getRepository(Recipe::class)->find($id);
-
+        
         if (!$recipe) {
             throw $this->createNotFoundException('The recipe does not exist');
         }
+        
+        // The ingredients data is not fetched by default, so we need to fetch it manually
+        foreach ($recipe->getIngredients() as $ingredient) {
+            $ingredients[] = [
+                'amount' => $ingredient->getAmount(),
+                'ingredient' => $ingredient->getIngredientId()->getName(),
+                'ingredientAmountType' => $ingredient->getIngredientAmountTypeId()->getType()
+            ];
+        }
 
         $form = $this->createForm(CreateNewRecipeType::class, $recipe);
+        $form->get('ingredients')->setData($ingredients);
+
+        // Handle request needs to be last!
         $form->handleRequest($request);
+
         
         if ($this->handleFormRequest($form, $recipe, $user, $entityManager)) {
             return $this->redirectToRoute('myrecipes');
@@ -302,7 +315,6 @@ class RecipeController extends AbstractController
 
         return $this->render('pages/editRecipe.html.twig', [
             'form' => $form->createView(),
-            'recipe' => $recipe
         ]);
     }
 
