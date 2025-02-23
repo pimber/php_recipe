@@ -132,15 +132,13 @@
 		let listItem = checkbox.closest('li');
 
 		// Get the div that contains all the content
-		let contentDiv = listItem.querySelector('.content-container');
+		let contentDiv = listItem.querySelector('.content-container > div');
 
 		// Toggle the line-through style based on checkbox state
 		if (checkbox.checked) {
-			contentDiv.style.textDecoration = 'line-through';
-			contentDiv.style.color = 'gray'; // Optional: Gray out the text
+			contentDiv.classList.add('line-through');
 		} else {
-			contentDiv.style.textDecoration = 'none'; // Remove line-through
-			contentDiv.style.color = ''; // Reset to default color
+			contentDiv.classList.remove('line-through');
 		}
 	}
 

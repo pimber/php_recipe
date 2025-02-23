@@ -25,9 +25,19 @@
 <div id="navbar-mobile" class="container">
     <div class="row">
         <div class="col-12">
-            <div class="d-flex flex-row justify-content-between align-items-center mt-4">
-                <div>
-                    <img id="navbar-toggle" class="bg-primary p-2" src="/icons/hamburger.svg" alt="Menu">
+            <div class="d-flex flex-row justify-content-between align-items-center mt-4 position-relative">
+                <div class="position-relative">
+                    <img id="navbar-toggle" class="bg-green p-2" src="/icons/hamburger.svg" alt="Menu">
+                </div>
+                <div id="dropdown-menu" class="dropdown-menu position-absolute w-100 mt-2">
+                    <ul class="fs-5 navbar-nav">
+                        <li><a href="{{ path('home') }}" class="text-black">Hjem</a></li>
+                        <li><a href="{{ path('recipes') }}" class="text-black">Opskrifter</a></li>
+                        <li><a href="{{ path('contact') }}" class="text-black">Kontakt</a></li>
+                        {% if app.user %}
+                        <li><a href="{{ path('myrecipes') }}" class="text-black">Mine opskrifter</a></li>
+                        {% endif %}
+                    </ul>
                 </div>
                 <div>
                     {% if app.user %}
@@ -37,19 +47,10 @@
                     {% endif %}
                 </div>
             </div>
-            <div id="dropdown-menu" class="dropdown-menu mx-2 p-2">
-                <ul class="fs-5 navbar-nav">
-                    <li><a href="{{ path('home') }}" class="text-black">Hjem</a></li>
-                    <li><a href="{{ path('recipes') }}" class="text-black">Opskrifter</a></li>
-                    <li><a href="{{ path('contact') }}" class="text-black">Kontakt</a></li>
-                    {% if app.user %}
-                    <li><a href="{{ path('myrecipes') }}" class="text-black">Mine opskrifter</a></li>
-                    {% endif %}
-                </ul>
-            </div>
         </div>
     </div>
 </div>
+
 
 <script>
 document.getElementById('navbar-toggle').addEventListener('click', function(event) {
@@ -63,16 +64,6 @@ document.getElementById('navbar-toggle').addEventListener('click', function(even
     } else {
         dropdownMenu.style.display = 'none';
         navbarMobileIcon.src = "{{ asset('icons/hamburger.svg') }}"; // Change the icon to hamburger menu
-    }
-});
-
-document.addEventListener('click', function(event) {
-    var dropdownMenu = document.getElementById('dropdown-menu');
-    var navbarMobileIcon = document.getElementById('navbar-toggle');
-
-    if (event.target !== dropdownMenu && event.target !== navbarMobileIcon && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.style.display = 'none';
-        navbarMobileIcon.src = "{{ asset('icons/hamburger.svg') }}"; // Ensure icon is set to hamburger menu when menu is closed
     }
 });
 </script>

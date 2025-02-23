@@ -30,7 +30,6 @@
                             }) }}
 						</div>
 						<div id="ingredients-wrapper" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}" data-index="{{ form.ingredients|length }}">
-							{{ form_label(form.ingredients) }}
 							<hr>
 							{% for ingredientForm in form.ingredients %}
 								<div class="d-flex flex-row justify-content-between remove">
@@ -55,32 +54,37 @@
 						<button type="button" id="add-ingredient" class="btn btn-success mt-3">Tilføj ingrediens</button>
 						<hr>
 						<div class="mb-3">
-							{{ form_label(form.cook_time_hour) }}
-							{{ form_widget(form.cook_time_hour) }}
-						</div>
-						<div class="mb-3">
-							{{ form_label(form.cook_time_min) }}
-							{{ form_widget(form.cook_time_min) }}
-						</div>
-						<div class="mb-3">
-							{{ form_label(form.prep_time_hour) }}
-							{{ form_widget(form.prep_time_hour) }}
-						</div>
-						<div class="mb-3">
-							{{ form_label(form.prep_time_min) }}
-							{{ form_widget(form.prep_time_min) }}
-						</div>
-						<button type="submit" class="btn btn-success mb-3">Opdatere</button>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-2 col-sm-1"></div>
-			</div>
+                            {{ form_label(form.cook_time_hour) }}
+                            {{ form_widget(form.cook_time_hour) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.cook_time_min) }}
+                            {{ form_widget(form.cook_time_min) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.prep_time_hour) }}
+                            {{ form_widget(form.prep_time_hour) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.prep_time_min) }}
+                            {{ form_widget(form.prep_time_min) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.imageFile) }}
+                            {{ form_widget(form.imageFile) }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success mb-3">Ændre</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-2 col-sm-1"></div>
+            </div>
 		{{ form_end(form) }}
 	</div>
 </div>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function () { 
 	// Get elements (List of ingredients and the ADD button) from DOM
 	var ingredientsWrapper = document.getElementById('ingredients-wrapper');
@@ -99,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	newIngredient = newIngredient.replaceAll('<div><label', '<div class="w-100 pe-2"><label');
 	// Add remove button to ingredient
 	var removeBtn = `<div class="d-flex align-items-end">
-						<button type="button" class="btn btn-danger remove-ingredient">Slet</button>
+						<button type="button" class="btn btn-danger remove-ingredient">Fjern</button>
 					</div>`;
 					
 	newIngredient = newIngredient.replace('</div></div>', '</div>' + removeBtn + '</div>');

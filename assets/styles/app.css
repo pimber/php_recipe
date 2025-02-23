@@ -82,7 +82,7 @@ html {
 
     color: #000000;
     padding-block: var(--b);
-    background: linear-gradient(var(--c) 50%, #000 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
+    background: linear-gradient(var(--c) 50%, var(--c) 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
         linear-gradient(var(--c) 0 0) 0% var(--_p, 0%) / var(--_p, 0%) var(--b) no-repeat;
     -webkit-background-clip: text, padding-box;
     background-clip: text, padding-box;
@@ -105,16 +105,23 @@ html {
     /* Change text color on hover */
 }
 
-.dropdown-menu {
-    top: 80px;
+/* Ensure the dropdown menu fills the full width of its parent */
+#dropdown-menu {
+    position: absolute;
+    top: 100%;
     left: 0;
-    background-color: #fff;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    z-index: 1000;
 }
 
-.dropdown-menu ul li {
+/* Style the menu items */
+#dropdown-menu ul li {
     padding: 10px;
+    text-align: center;
 }
+
 
 .card-img-top {
     width: 100%;
@@ -301,4 +308,19 @@ p {
     width: 100%;
     max-width: 636px;
     object-fit:cover; /* Optional, depending on your use case */
+}
+
+.line-through {
+    position: relative;
+    color: rgba(128, 128, 128, .5);
+}
+
+.line-through::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1.5px;
+    background-color: black;
 }
