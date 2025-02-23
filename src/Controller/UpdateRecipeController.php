@@ -64,14 +64,4 @@ class UpdateRecipeController extends AbstractController
             'error' => false
         ]);
     }
-
-    #[Route('/slet-opskrift/{id}', name:'delete')]
-    public function delete(EntityManagerInterface $entityManager, $id): Response
-    {
-        $recipe = $entityManager->getRepository(Recipe::class)->find($id);
-        $entityManager->remove($recipe);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('myrecipes');
-    }
 }

@@ -3,19 +3,19 @@
 {% block body %}
 
 <div class="container">
-		<div class="row">
-			<div class="col-lg-7 col-md-9 d-flex flex-column mt-5 mb-5">
-				<p class="text-green">
-					<strong>Ændre din opskrift her</strong>
-				</p>
-				<h1 class="mt-2 mb-4">Kom i gang med at ændre din opskrift</h1>
-				<p>Her kan du redigere din opskrift. Ret stavefejl, tilføj manglende ingredienser, angiv mængder og beskriv fremgangsmåden, så andre kan få glæde af den. God fornøjelse!</p>
-			</div>
+	<div class="row">
+		<div class="col-lg-7 col-md-9 d-flex flex-column mt-5 mb-5">
+			<p class="text-green">
+				<strong>Ændre din opskrift her</strong>
+			</p>
+			<h1 class="mt-2 mb-4">Kom i gang med at ændre din opskrift</h1>
+			<p>Her kan du redigere din opskrift. Ret stavefejl, tilføj manglende ingredienser, angiv mængder og beskriv fremgangsmåden, så andre kan få glæde af den. God fornøjelse!</p>
 		</div>
-            {{ form_start(form) }}
-            <div class="row">
+	</div>
+		{{ form_start(form) }}
+			<div class="row">
 				<div class="col-lg-3 col-md-2 col-sm-1"></div>
-                <div class="col-lg-6 col-md-8 col-sm-10 mb-4">
+				<div class="col-lg-6 col-md-8 col-sm-10 mb-4">
 					<div>
 						<div class="mb-3">
 							{{ form_label(form.name) }}
@@ -23,7 +23,11 @@
 						</div>
 						<div class="mb-3">
 							{{ form_label(form.description) }}
-							{{ form_widget(form.description) }}
+							{{ form_widget(form.description, {
+                                'attr': {
+                                    'style': 'min-height:150px;'
+                                }
+                            }) }}
 						</div>
 						<div id="ingredients-wrapper" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}" data-index="{{ form.ingredients|length }}">
 							{{ form_label(form.ingredients) }}
@@ -70,10 +74,9 @@
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-2 col-sm-1"></div>
-            {{ form_end(form) }}
 			</div>
-        </div>
-    </div>
+		{{ form_end(form) }}
+	</div>
 </div>
 
 <script>

@@ -293,10 +293,9 @@ class RecipeController extends AbstractController
             throw $this->createNotFoundException('The recipe does not exist');
         }
 
-        // Create Form handling
-        $recipe = new Recipe();
         $form = $this->createForm(CreateNewRecipeType::class, $recipe);
         $form->handleRequest($request);
+        
         if ($this->handleFormRequest($form, $recipe, $user, $entityManager)) {
             return $this->redirectToRoute('myrecipes');
         }
@@ -305,5 +304,15 @@ class RecipeController extends AbstractController
             'form' => $form->createView(),
             'recipe' => $recipe
         ]);
+    }
+
+    #[Route('/slet-opskrift/{id}', name:'delete')]
+    public function delete(EntityManagerInterface $entityManager, $id): Response
+    {
+        $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+        $entityManager->remove($recipe);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('myrecipes');
     }
 }
