@@ -27,8 +27,8 @@ class ContactController extends AbstractController
             $data = $form->getData();
 
             $emailMessage = (new Email())
-                ->from('oldefarsopskrifter@outlook.dk')
-                ->to('oldefarsopskrifter@outlook.dk')
+                ->from('oldefarsopskrifter@gmail.com')
+                ->to('oldefarsopskrifter@gmail.com')
                 ->subject('Contact form submission')
                 ->text("You have a new message from {$data['fullName']} ({$data['email']}):\n\n{$data['message']}");
 

@@ -101,7 +101,7 @@ class SecurityController extends AbstractController
             ]);
             
             $email = (new Email())
-            ->from('oldefarsopskrifter@outlook.dk')
+            ->from('oldefarsopskrifter@gmail.com')
             ->to($user->getEmail())
             ->subject('Please Confirm your Email')
             ->html($htmlContent);
