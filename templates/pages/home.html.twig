@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div id="homepage" class="container">
+		<div class="row mt-3 mb-4">
+			<div class="col-12 d-flex flex-column flex-lg-row align-items-center">
+				<div class="col-lg-6 d-flex flex-column">
+					<h1>Min oldefar elskede at lege med maden</h1>
+					<p class="mb-3">...og jeg vil rigtig gerne dele nogle af mine favoritopskrifter med dig! Opret en gratis konto og del nogle af dine yndlingsopskrifter med os andre.</p>
+					<div class="d-flex flex-column flex-md-column flex-lg-column flex-xl-row btn-container mb-2">
+						<a href="{{ path('aboutGreatGrandfather') }}" class="btn btn-oldefar-green btn-lg mb-2 me-2 btn-width">
+							<img src="{{ asset('icons/play-btn.svg') }}" class="me-1 icon-move-up">Mød min oldefar
+						</a>
+						{% if app.user %}
+							<a href="{{ path('myrecipes') }}" class="btn btn-oldefar-green btn-lg mb-2 me-2 btn-width">Hop med på legen</a>
+						{% else %}
+							<a href="{{ path('register') }}" class="btn btn-oldefar-green btn-lg mb-2 me-2 btn-width">Hop med på legen</a>
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-lg-6 d-flex justify-content-end">
+					<img src="{{ asset('img/homepage.png') }}" class="d-none d-lg-block homepage-img" alt="Homepage image">
+				</div>
+			</div>
+		</div>
+		<div class="row mt-4 mb-4">
+			<div class="col-12 d-flex flex-row flex-wrap">
+				<div class="col-lg-9 col-sm-7">
+					<p class="text-green">
+						<strong>3 tilfældigt udvalgte opskrifter hver dag</strong>
+					</p>
+					<p class="fs-1">Dagens Menu</p>
+					<p class="fs-4">Knurrer maven ikke efter lige netop de her retter? Oplev hele vores udvalg af opskrifter og sammensæt din helt egen menu.</p>
+				</div>
+				<div class="col-lg-3 col-sm-5 d-flex justify-content-end align-self-start mt-3 mt-sm-0">
+					<a href="{{ path('recipes') }}" class="btn btn-oldefar-green">Se alle opskrifter
+						<img src="{{ asset('icons/arrow_right.svg') }}" class="icon-move-up">
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			{% for recipe in recipes %}
+				{% include 'components/card.html.twig' with {'recipe': recipe } %}
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

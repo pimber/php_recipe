@@ -2,32 +2,42 @@
 
 {% block body %}
 
-	{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-	<div class="row">
-		<h3 class="my-5 d-flex justify-content-center text-white">Velkommen! Log ind for at tilføje opskrifter</h3>
-		<div class="col-lg-3 col-md-2 col-sm-1"></div>
-		<div class="col-lg-6 col-md-8 col-sm-10 mb-4">
-			<div class="d-flex align-items-center flex-column">
-				{% if error %}
-					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-				{% endif %}
-				<div class="mb-3 w-100">
-					{{ form_label(form.Email, 'Email adresse', {'label_attr': {'class': 'form-label text-white'}}) }}
-					{{ form_widget(form.Email, {'attr': {
-                    'class': 'form-control',
-                    'value': form.vars.value.last_email
-                }}) }}
-				</div>
-				<div class="mb-3 w-100">
-					{{ form_label(form.Password, 'Adgangskode', {'label_attr': {'class': 'form-label text-white'}}) }}
-					{{ form_widget(form.Password, {'attr': {'class': 'form-control'}}
-					) }}
-				</div>
-				<button type="submit" class="btn btn-primary mb-2">Log ind</button>
-				<a href="{{ path('register') }}" class="btn btn-outline-light">Har du ikke en konto? Klik her for at oprette en</a>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7 col-md-9 d-flex flex-column mt-5 mb-5">
+				<p class="text-green">
+					<strong>Log ind</strong>
+				</p>
+				<h1 class="mt-2 mb-4">Få adgang til dine opskrifter og mere</h1>
+				<p>Log ind for at oprette, redigere og dele dine yndlingsopskrifter med vores fællesskab</p>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-2 col-sm-1"></div>
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+		<div class="row">
+			<div class="col-lg-3 col-md-2 col-sm-1"></div>
+			<div class="col-lg-6 col-md-8 col-sm-10 mb-4">
+				<div class="d-flex align-items-center flex-column">
+					{% if error %}
+						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+					{% endif %}
+					<div class="mb-3 w-100">
+						{{ form_label(form.Email, 'Email adresse', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(form.Email, {'attr': {
+						'class': 'form-control',
+						'value': form.vars.value.last_email
+					}}) }}
+					</div>
+					<div class="mb-3 w-100">
+						{{ form_label(form.Password, 'Adgangskode', {'label_attr': {'class': 'form-label'}}) }}
+						{{ form_widget(form.Password, {'attr': {'class': 'form-control'}}
+						) }}
+					</div>
+					<button type="submit" class="btn btn-oldefar-green mb-2">Log ind</button>
+					<a href="{{ path('register') }}" class="btn btn-outline-secondary">Har du ikke en konto? Klik her for at oprette en</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-2 col-sm-1"></div>
+		</div>
+		{{ form_end(form) }}
 	</div>
-	{{ form_end(form) }}
 {% endblock %}

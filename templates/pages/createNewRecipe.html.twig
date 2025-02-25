@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-7 col-md-9 d-flex flex-column mt-5 mb-5">
+            <p class="text-green">
+                <strong>Opret din nye opskrift her</strong>
+            </p>
+            <h1 class="mt-2 mb-4">Kom i gang med at lave en ny opskrift</h1>
+            <p>Her kan du oprette en helt ny opskrift. Indtast ingredienser, angiv mængder og beskriv fremgangsmåden, så andre kan få glæde af den. God fornøjelse</p>
+        </div>
+    </div>
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-lg-3 col-md-2 col-sm-1"></div>
+                <div class="col-lg-6 col-md-8 col-sm-10 mb-4">
+                    <div>
+                        <div class="mb-3">
+                            {{ form_label(form.name) }}
+                            {{ form_widget(form.name) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.description) }}
+                            {{ form_widget(form.description, {
+                                'attr': {
+                                    'style': 'min-height:150px;'
+                                }
+                            }) }}
+                        </div>
+                        <div id="ingredients-wrapper" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}" data-index="{{ form.ingredients|length }}">
+                            {{ form_label(form.ingredients) }}
+                            {{ form_widget(form.ingredients) }}
+                            <hr>
+                        </div>
+                        <button type="button" id="add-ingredient-create" class="btn btn-success mt-3">Tilføj ingrediens</button>
+                        <hr>
+                        <div class="mb-3">
+                            {{ form_label(form.cook_time_hour) }}
+                            {{ form_widget(form.cook_time_hour) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.cook_time_min) }}
+                            {{ form_widget(form.cook_time_min) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.prep_time_hour) }}
+                            {{ form_widget(form.prep_time_hour) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.prep_time_min) }}
+                            {{ form_widget(form.prep_time_min) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.imageFile) }}
+                            {{ form_widget(form.imageFile) }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success mb-3">Upload</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-2 col-sm-1"></div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () { 
+	// Get elements (List of ingredients and the ADD button) from DOM
+	var ingredientsWrapper = document.getElementById('ingredients-wrapper');
+	var addIngredientButton = document.getElementById('add-ingredient-create');
+
+	addIngredientButton.addEventListener('click', function () { 
+		
+	// The new ingredient HTML
+	var newIngredient = ingredientsWrapper.dataset.prototype;
+	// Ingredient index in the list
+	var index = ingredientsWrapper.dataset.index;
+	// Set index on the new ingredients
+	newIngredient = newIngredient.replace(/__name__/g, index)
+	// Add classes to divs
+	newIngredient = newIngredient.replace('Mængde</label><input type="text"', 'Mængde</label><input type="number" min="0" step="0.01"');
+	newIngredient = newIngredient.replace('create_new_recipe_ingredients_' + index, 'create_new_recipe_ingredients_' + index + '" class="d-flex flex-row justify-content-between remove" ');
+	newIngredient = newIngredient.replaceAll('<div>', '<div class="w-100 pe-2">');
+	// Add remove button to ingredient
+	var removeBtn = `<div class="d-flex align-items-end">
+						<button type="button" class="btn btn-danger remove-ingredient">Slet</button>
+					</div>`;
+					
+	newIngredient = newIngredient.replace('</div></div>', '</div>' + removeBtn + '</div>');
+
+	// Count up index
+	ingredientsWrapper.dataset.index ++;
+
+	// Show the new ingredient in HTML/DOM
+	var newElement = document.createElement('div');
+	newElement.innerHTML = newIngredient;
+	ingredientsWrapper.appendChild(newElement);
+	});
+
+	ingredientsWrapper.addEventListener('click', function (event) {
+		if (event.target.classList.contains('remove-ingredient')) {
+			event.target.closest('.remove').remove();
+		}
+	});
+});
+</script>
+{% endblock %}

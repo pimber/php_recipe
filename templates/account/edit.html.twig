@@ -2,9 +2,18 @@
 
 {% block body %}
 
+<div class="container">
+	<div class="row">
+		<div class="col-lg-7 col-md-9 d-flex flex-column mt-5 mb-5">
+			<p class="text-green">
+				<strong>Ændre informationer</strong>
+			</p>
+			<h1 class="mt-2 mb-4">Her kan du ændre dine information</h1>
+			<p>Skulle det ske at du har fået ny email? Vil ændre dit password? eller har fået nyt navn? Så kan du ændre det her neden under i formen</p>
+		</div>
+	</div>
 	{{ form_start(form) }}
 	<div class="row">
-		<h3 class="my-5 d-flex justify-content-center text-white">Rediger dine oplysninger</h3>
 		<div class="col-lg-3 col-md-2 col-sm-1"></div>
 		<div class="col-lg-6 col-md-8 col-sm-10 mb-4">
 			<div class="d-flex align-items-center flex-column">
@@ -12,7 +21,7 @@
 					<div class="alert alert-danger">{{ error }}</div>
 				{% endif %}
 				<div class="mb-3 w-100">
-					{{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label text-white'}}) }}
+					{{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
 					{{ form_widget(form.name, {'attr': {
                     'class': 'form-control',
                     'placeholder': form.vars.value.name,
@@ -21,7 +30,7 @@
 					{{ form_errors(form.name) }}
 				</div>
 				<div class="mb-3 w-100">
-					{{ form_label(form.email, 'Email address', {'label_attr': {'class': 'form-label text-white'}}) }}
+					{{ form_label(form.email, 'Email address', {'label_attr': {'class': 'form-label'}}) }}
 					{{ form_widget(form.email, {'attr': {
                     'class': 'form-control',
                     'placeholder': form.vars.value.email,
@@ -30,12 +39,12 @@
 					{{ form_errors(form.email) }}
 				</div>
 				<div class="mb-3 w-100">
-					{{ form_label(form.password, 'New Password', {'label_attr': {'class': 'form-label text-white'}}) }}
+					{{ form_label(form.password, 'New Password', {'label_attr': {'class': 'form-label'}}) }}
 					{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
 					{{ form_errors(form.password) }}
 				</div>
 				<div class="d-flex justify-content-between w-100">
-					<button type="submit" class="btn btn-primary">Gem ændringer</button>
+					<button type="submit" class="btn btn-oldefar-green">Gem ændringer</button>
 					<a href="{{ path('logout')}}" class="btn btn-danger">Log ud</a>
 				</div>
 			</div>
@@ -43,5 +52,6 @@
 		<div class="col-lg-3 col-md-2 col-sm-1"></div>
 	</div>
 	{{ form_end(form) }}
+</div>
 
 {% endblock %}

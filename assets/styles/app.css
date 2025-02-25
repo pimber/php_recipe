@@ -1,64 +1,75 @@
 @import 'bootstrap';
 
+html {
+    overflow-y: scroll;
+}
+
+:root {
+    --green: #087443;
+    --black: #000000;
+}
+
+.text-green {
+    color: var(--green);
+}
+
+.bg-green {
+    background-color: var(--green);
+}
+
+.icon-move-up {
+    margin-top: -3px;
+}
+
+.icon-move-down {
+    margin-top: 3px;
+}
+
 /****************************************
-    Main layout
+    Home page
 ****************************************/
 
-.bg-image {
-    background-image: url("../../public/img/background.jpeg");
-    background-size: cover;
-    /* Ensures the background image covers the entire element */
-    background-position: center;
-    /* Centers the background image */
-    background-repeat: no-repeat;
-    /* Prevents the background image from repeating */
-    height: 100vh;
-    /* Ensures the element takes the full viewport height */
-    width: 100vw;
-    /* Ensures the element takes the full viewport width */
-    overflow: hidden;
-    /* Prevents any overflow issues */
+
+.btn-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.bg-center {
-    background-color: #ffffff12;
-}
-
-#navbar-mobile-container {
-    position: relative;
-}
-
-.dropdown-menu {
-    display: none;
-    top: 75px;
-    /* Adjust based on your navbar height */
-    background-color: white;
-    /* Adjust as needed */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    /* Optional for a shadow effect */
-    border-radius: 5px;
-    /* Optional for rounded corners */
-    z-index: 1000;
-    /* Ensure it appears above other elements */
-}
-
-.dropdown-menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 10px;
-}
-
-.dropdown-menu .nav-item {
-    margin: 10px 0;
-}
-
-.card-img-top {
+.homepage-img {
+    min-height: fit-content;
+    max-height: 550px;
+    height: 100%;
     width: 100%;
-    height: 180px;
-    object-fit: cover;
+    max-width: 660px; /* Or any other maximum width */
+    object-fit:cover; /* Optional, depending on your use case */
+    
+}
+
+@media (max-width: 992px) {
+    .btn-width {
+        width: fit-content;
+        min-width: 210px;
+    }    
+}
+
+@media (max-width: 1200px) {
+    .btn-width {
+        width: fit-content;
+        min-width: 210px;
+    }  
 }
 
 
+@media (min-width: 992px) {
+    .btn-container {
+        flex-direction: column;
+    }
+
+    .btn-container .btn-center {
+        margin-bottom: 10px;
+    }
+}
 
 /****************************************
     Navbar
@@ -66,34 +77,63 @@
 .hover-3 {
     --b: 2px;
     /* Increase the thickness of the line */
-    --c: #b8b8b8;
+    --c: #087443;
     /* Change the color to white */
 
-    color: #ffffff;
+    color: #000000;
     padding-block: var(--b);
-    background: linear-gradient(var(--c) 50%, #000 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
+    background: linear-gradient(var(--c) 50%, var(--c) 0) 0% calc(100% - var(--_p, 0%)) / 100% 200%,
         linear-gradient(var(--c) 0 0) 0% var(--_p, 0%) / var(--_p, 0%) var(--b) no-repeat;
     -webkit-background-clip: text, padding-box;
     background-clip: text, padding-box;
     transition: 0.1s var(--_s, 0s) linear,
         background-size 0.1s calc(0.1s - var(--_s, 0s));
     text-decoration: none;
-    /* Disable default underline */
 }
 
 .hover-3:hover {
     --_p: 100%;
     --_s: 0.1s;
-    color: #b8b8b8;
+    color: #087443;
     /* Change text color on hover */
 }
 
 .keep-hover-3 {
     --_p: 100%;
     --_s: 0.1s;
-    color: #b8b8b8;
+    color: #087443;
     /* Change text color on hover */
 }
+
+/* Ensure the dropdown menu fills the full width of its parent */
+#dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    z-index: 1000;
+}
+
+/* Style the menu items */
+#dropdown-menu ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+
+.card-img-top {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+#card-view {
+    min-height: 450px;
+}
+
+
 
 /* Hide #navbar below 992px */
 @media (max-width: 992px) {
@@ -138,6 +178,7 @@
     text-align: center;
     padding: 40px 0;
 }
+
 .reg-h1 {
     color: #88B04B;
     font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
@@ -145,18 +186,21 @@
     font-size: 40px;
     margin-bottom: 10px;
 }
+
 .reg-p {
     color: #404F5E;
     font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
     font-size: 20px;
     margin: 0;
 }
+
 .reg-i {
     color: #9ABC66;
     font-size: 100px;
     line-height: 200px;
     margin-left: -15px;
 }
+
 .reg-card {
     background: white;
     padding: 60px;
@@ -164,4 +208,119 @@
     box-shadow: 0 2px 3px #C8D0D8;
     display: inline-block;
     margin: 0 auto;
+}
+
+/****************************************
+    Footer
+****************************************/
+
+.footer-bg {
+    background-color: #087443;
+    color: #ffffff;
+    padding: 40px 0;
+}
+
+.footer-bg a {
+    color: #ffffff;
+    margin-right: 20px;
+    /* Space between links */
+    font-size: large;
+    text-decoration: none;
+}
+
+/* Hide #footer below 992px */
+@media (max-width: 992px) {
+    #footer {
+        display: none;
+    }
+}
+
+/* Hide #footer from 992px onwards */
+@media (min-width: 992px) {
+    #footer-mobile {
+        display: none;
+    }
+}
+
+/****************************************
+    Card
+****************************************/
+
+#card-view h3,
+p {
+    margin-bottom: 0;
+}
+
+.icon-center {
+    display: flex;
+    align-items: center;
+}
+
+.icon-center img {
+    margin-right: 5px;
+}
+
+/* Grow */
+.grow {
+	display: inline-block;
+	transition-duration: 0.3s;
+	transition-property: transform;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+}
+
+
+/****************************************
+    Show recipe
+****************************************/
+
+.show-recipe-img {
+    min-height: fit-content;
+    max-height: 550px;
+    height: 100%;
+    width: 100%;
+    max-width: 660px; /* Or any other maximum width */
+    object-fit:cover; /* Optional, depending on your use case */
+    
+}
+
+.show-recipe-content {
+    padding: 50px;
+    min-height: fit-content;
+}
+
+/* When under 768px add margin  */
+@media (max-width: 768px) {
+    .show-recipe-title {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+/****************************************
+    About oldefar
+****************************************/
+
+.oldefar-img {
+    max-height: 450px;
+    width: 100%;
+    max-width: 636px;
+    object-fit:cover; /* Optional, depending on your use case */
+}
+
+.line-through {
+    position: relative;
+    color: rgba(128, 128, 128, .5);
+}
+
+.line-through::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1.5px;
+    background-color: black;
 }

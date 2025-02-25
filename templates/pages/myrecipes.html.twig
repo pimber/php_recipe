@@ -2,55 +2,55 @@
 
 {% block body %}
 
-<div class="row">
-    <h3 class="my-5 d-flex justify-content-center text-white">Leder du efter en af dine egne opskrifter? Find den her!</h3>
-    <div class="col-lg-3 col-md-2 col-sm-1"></div>
-    <div class="col-lg-6 col-md-8 col-sm-10 mb-4">
-        <form id="searchForm" action="{{ path('myrecipes') }}" method="get" class="d-flex flex-column align-items-center">
-            <input type="text" id="searchInput" class="form-control mb-2" name="search" placeholder="Search for recipe" value="{{ searchTerm }}">
-            <div class="d-flex flex-wrap justify-content-between w-100">
-                <button type="submit" class="btn btn-primary mb-2 me-2">Søg</button>
-                <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Opret ny opskrift</button>
-            </div>
-        </form>
-    </div>
-    <div class="col-lg-3 col-md-2 col-sm-1 d-flex justify-content-end align-items-start divBtn">
-        <button type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Opret ny opskrift</button>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="row">
-            {% for recipe in recipes %}
-                {% include 'modal/card.html.twig' with {'recipe': recipe, 'owner': true } %}
-            {% endfor %}
+<div class="container">
+    <div class="row">
+		<div class="col-lg-7 col-md-9 d-flex flex-column mt-5 mb-5">
+			<p class="text-green"><strong>Dine opskrifter</strong></p>
+			<h1 class="mt-2 mb-4">Glemt og tilføje noget til opskriften?</h1>
+			<p>
+            Tryk på knappen for at ændre og tilføje nye elementer til din opskrift!
+            Husk, at du altid kan uploade et billede senere, hvis du ikke har et til din opskrift lige nu.
+            </p>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-lg-3 col-md-2 col-sm-1"></div>
+        <div class="col-lg-6 col-md-8 col-sm-10 mb-5">
+            <form id="searchForm" action="{{ path('myrecipes') }}" method="get" class="d-flex flex-column align-items-center">
+                <input type="text" id="searchInput" class="form-control mb-2" name="search" placeholder="Search for recipe" value="{{ searchTerm }}">
+                <div class="d-flex flex-wrap justify-content-between w-100">
+                    <button type="submit" class="btn btn-oldefar-green mb-2 me-2">Søg</button>
+                    <a href="{{ path('createNewRecipe') }}"><button type="button" class="btn btn-success mb-2">Opret ny opskrift</button></a>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-2 col-sm-1 d-flex justify-content-end align-items-start divBtn">
+            <a href="{{ path('createNewRecipe') }}"><button type="button" class="btn btn-success mb-2">Opret ny opskrift</button></a>
         </div>
     </div>
-</div>
-<div class="row justify-content-center mt-4">
-    <div class="col-auto">
-        {{ knp_pagination_render(recipes, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                {% for recipe in recipes %}
+                    {% include 'components/card.html.twig' with {'recipe': recipe, 'owner': true } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-auto">
+            {{ knp_pagination_render(recipes, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+        </div>
     </div>
 </div>
 
 
 {# Create recipe modal view here #}
-{% include 'modal/createrecipe.html.twig' %}
-
-{# Recipe Modal View here #}
-{% for recipe in recipes %}
-    {% include 'modal/showrecipe.html.twig' with {'recipe': recipe } %}
-{% endfor %}
+{# {% include 'modal/createrecipe.html.twig' %} #}
 
 {# Delete recipe modal view here #}
 {% for recipe in recipes %}
     {% include 'modal/deleterecipe.html.twig' with {'recipe': recipe } %}
-{% endfor %}
-
-{# Edit recipe modal view here #}
-
-{% for col in collection %}
-    {% include 'modal/editrecipe.html.twig' with {'id': col.id, 'form': col.formView } %}
 {% endfor %}
 
 <script>

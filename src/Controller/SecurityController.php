@@ -2,26 +2,24 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\User;
-use App\Form\LoginFormType;
-use App\Form\RegistrationFormType;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
-use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+use App\Form\RegistrationFormType;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Form\LoginFormType;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/login', name: 'login')] 
+    #[Route('/log-ind', name: 'login')] 
     public function auth(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) return $this->redirectToRoute('home');
@@ -42,7 +40,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/logout', name: 'logout')]
+    #[Route('/log-ud', name: 'logout')]
     public function logout()
     {
         // controller can be blank: it will never be executed!
@@ -50,7 +48,7 @@ class SecurityController extends AbstractController
     }
 
     
-    #[Route('/register', name:'register')]
+    #[Route('/register-bruger', name:'register')]
     public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper, MailerInterface $mailer): Response
     {
         $user = new User();
@@ -103,7 +101,7 @@ class SecurityController extends AbstractController
             ]);
             
             $email = (new Email())
-            ->from('oldefarsopskrifter@outlook.dk')
+            ->from('oldefarsopskrifter@gmail.com')
             ->to($user->getEmail())
             ->subject('Please Confirm your Email')
             ->html($htmlContent);
@@ -120,47 +118,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/verify', name: 'verify_email')]
-    public function verifyUserEmail(Request $request, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
-    {
-        // Match ID of the user
-        $id = $request->get('id');
-
-        if (null === $id) {
-            return $this->redirectToRoute('register');
-        }
-        
-        // Match user with database based on ID
-        $user = $entityManager->getRepository(User::class)->find($id);
-
-        if (null === $user) {
-            return $this->redirectToRoute('register');
-        }
-
-        // Handle the verification of the user
-        try {
-            $verifyEmailHelper->validateEmailConfirmationFromRequest($request, $user->getId(), $user->getEmail());
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
-
-            return $this->redirectToRoute('register');
-        }
-
-        $user->setIsActive(true);
-        $entityManager->flush();
-
-        $this->addFlash('success', 'Your email address has been verified.');
-
-        return $this->redirectToRoute('login');
-    }
-
-    #[Route('/confirm_email', name: 'confirm_email')]
-    public function confirmUserEmail() : Response
-    {
-        return $this->render('account/confirm_email.html.twig');
-    }
-
-    #[Route('/edit', name:'edit')]
+    #[Route('/opdater-bruger-information', name:'edit')]
     public function edit(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         // Says that user is the type of User or null
@@ -211,4 +169,43 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    #[Route('/validering', name: 'verify_email')]
+    public function verifyUserEmail(Request $request, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
+    {
+        // Match ID of the user
+        $id = $request->get('id');
+
+        if (null === $id) {
+            return $this->redirectToRoute('register');
+        }
+        
+        // Match user with database based on ID
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        if (null === $user) {
+            return $this->redirectToRoute('register');
+        }
+
+        // Handle the verification of the user
+        try {
+            $verifyEmailHelper->validateEmailConfirmationFromRequest($request, $user->getId(), $user->getEmail());
+        } catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlash('verify_email_error', $exception->getReason());
+
+            return $this->redirectToRoute('register');
+        }
+
+        $user->setIsActive(true);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Your email address has been verified.');
+
+        return $this->redirectToRoute('login');
+    }
+
+    #[Route('/konfirmation_email', name: 'confirm_email')]
+    public function confirmUserEmail() : Response
+    {
+        return $this->render('account/confirm_email.html.twig');
+    }
 }
